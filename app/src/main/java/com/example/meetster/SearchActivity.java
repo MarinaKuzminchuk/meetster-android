@@ -1,12 +1,7 @@
 package com.example.meetster;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,55 +14,41 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 public class SearchActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVER_BT = 1;
+    private static final int DISCOVERABLE_DURATION_IN_SECONDS = 3600;
 
+    // Permissions for Android < 12
     private static final String[] BLE_PERMISSIONS = new String[]{
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
     };
 
+    // Permissions for Android >= 12
     private static final String[] ANDROID_12_BLE_PERMISSIONS = new String[]{
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.BLUETOOTH_SCAN,
             Manifest.permission.BLUETOOTH_CONNECT,
-            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
     };
 
-    TextView btStatus, foundUsers;
-    ImageView btImage;
-    Button btOn, btOff, btDiscover, btFound;
-    BluetoothAdapter btAdapter;
-
-    ActivityResultLauncher<Intent> turnOnBluetoothActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
-                        btImage.setImageResource(R.drawable.ic_action_on);
-                        showToast("Bluetooth is on");
-                        if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                            return;
-                        }
-                    } else {
-                        // user denied to turn on bluetooth
-                        showToast("Could not turn on bluetooth");
-                    }
-                }
-            });
+    private TextView btStatus;
+    private TextView foundUsers;
+    private ImageView btImage;
+    private Button btnSearch;
+    private Button btnStopSearch;
+    private BluetoothAdapter btAdapter;
 
     // Create a BroadcastReceiver for ACTION_FOUND.
     private BroadcastReceiver receiver;
@@ -80,10 +61,8 @@ public class SearchActivity extends AppCompatActivity {
         btStatus = findViewById(R.id.statusBt);
         foundUsers = findViewById(R.id.listOfUsers);
         btImage = findViewById(R.id.imageBt);
-        btOn = findViewById(R.id.turnOnBt);
-        btOff = findViewById(R.id.turnOffBt);
-        btDiscover = findViewById(R.id.discoverableBt);
-        btFound = findViewById(R.id.allFoundBt);
+        btnSearch = findViewById(R.id.search);
+        btnStopSearch = findViewById(R.id.stopSearch);
         // initialize an adapter
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         // Get the Intent that started this activity and extract the string
@@ -103,23 +82,12 @@ public class SearchActivity extends AppCompatActivity {
             btImage.setImageResource(R.drawable.ic_action_off);
         }
 
-        if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
-        }
-        if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 3);
-        }
-        if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_ADMIN}, 4);
-        }
-        btAdapter.startDiscovery();
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
                 if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                    // Discovery has found a device. Get the BluetoothDevice
-                    // object and its info from the Intent.
+                    // Discovery has found a device
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                     if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -129,30 +97,22 @@ public class SearchActivity extends AppCompatActivity {
                     }
                     foundUsers.append(device.getName() + "\n");
                 } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
-                    if (btAdapter.isEnabled()) {
-                        // Make our device discoverable
+                    if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    if (btAdapter.isEnabled() && !btAdapter.isDiscovering()) {
+                        // Make our device discoverable when bluetooth was turned on
                         showToast("Making your device discoverable");
-
+                        if (btAdapter.getState() == BluetoothAdapter.STATE_ON) {
+                            btAdapter.setName("Marina");
+                        }
                         if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
                             return;
                         }
-                        if (!btAdapter.isDiscovering()) {
-                            if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.BLUETOOTH}, 7);
-                            }
-                            if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.BLUETOOTH_ADMIN}, 8);
-                            }
-                            showToast("BT State" + btAdapter.getState());
-                            if (btAdapter.getState() == BluetoothAdapter.STATE_ON) {
-                                btAdapter.setName("Marina");
-                            }
-
-                            int requestCode = 1;
-                            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-                            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
-                            startActivityForResult(discoverableIntent, requestCode);
-                        }
+                        btAdapter.startDiscovery();
+                        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+                        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERABLE_DURATION_IN_SECONDS);
+                        startActivityForResult(discoverableIntent, REQUEST_DISCOVER_BT);
                     }
                 }
             }
@@ -163,7 +123,7 @@ public class SearchActivity extends AppCompatActivity {
         registerReceiver(receiver, intentFilter);
 
         // start search
-        btOn.setOnClickListener(new View.OnClickListener() {
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Turn on Bluetooth if it's not enabled
@@ -171,14 +131,17 @@ public class SearchActivity extends AppCompatActivity {
                     showToast("Turning on bluetooth");
                     requestBlePermissions(SearchActivity.this, REQUEST_ENABLE_BT);
                     Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                    turnOnBluetoothActivityResultLauncher.launch(intent);
+                    if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivityForResult(intent, REQUEST_ENABLE_BT);
                 } else {
                     showToast("Bluetooth is already on");
                 }
             }
         });
-        // turns off bluetooth on click
-        btOff.setOnClickListener(new View.OnClickListener() {
+        // stop search
+        btnStopSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (btAdapter.isEnabled()) {
@@ -193,62 +156,24 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
-        // discover bluetooth button click
-//        btDiscover.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-//                    return;
-//                }
-//                if (!btAdapter.isDiscovering()) {
-//                    showToast("Making your device discoverable");
-//
-//                    if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED) {
-//                        ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.BLUETOOTH}, 7);
-//                    }
-//                    if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
-//                        ActivityCompat.requestPermissions(SearchActivity.this, new String[]{Manifest.permission.BLUETOOTH_ADMIN}, 8);
-//                    }
-//                    if (btAdapter.getState() == BluetoothAdapter.STATE_ON){
-//                        btAdapter.setName("Marina");
-//                    }
-//
-//                    int requestCode = 1;
-//                    Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-//                    discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
-//                    startActivityForResult(discoverableIntent, requestCode);
-//                }
-//            }
-//        });
-        // get all find users button click
-//        btFound.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (btAdapter.isEnabled()) {
-////                    foundUsers.setText("Paired devices");
-////                    if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-////                        return;
-////                    }
-////                    Set<BluetoothDevice> devices = btAdapter.getBondedDevices();
-////                    for(BluetoothDevice device: devices){
-////                        foundUsers.append("\nDevice" + device.getName() + "," + device);
-////                    }
-//                }
-//            }
-//        });
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_ENABLE_BT:
-                if (resultCode == RESULT_OK) {
-                    btImage.setImageResource(R.drawable.ic_action_on);
-                    showToast("Bluetooth is on");
-                } else {
-                    // user denied to turn on bluetooth
-                    showToast("Could not turn on bluetooth");
-                }
-                break;
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode == RESULT_OK) {
+                btImage.setImageResource(R.drawable.ic_action_on);
+                showToast("Bluetooth is on");
+            } else {
+                // user denied to turn on bluetooth
+                showToast("Could not turn on bluetooth");
+            }
+        } else if (requestCode == REQUEST_DISCOVER_BT) {
+            if (resultCode == DISCOVERABLE_DURATION_IN_SECONDS) {
+                showToast("You can be discovered now for " + DISCOVERABLE_DURATION_IN_SECONDS + " seconds");
+            } else {
+                // user denied to turn on discovery
+                showToast("You cannot be discovered");
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

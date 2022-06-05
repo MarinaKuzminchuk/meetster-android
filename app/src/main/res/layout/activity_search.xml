@@ -27,34 +27,19 @@
         />
     <!--Bluetooth on button-->
     <Button
-        android:id="@+id/turnOnBt"
-        android:minWidth="200dp"
+        android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Turn on"
-        />
+        android:minWidth="200dp"
+        android:text="Search" />
     <!--Bluetooth off button-->
     <Button
-        android:id="@+id/turnOffBt"
-        android:minWidth="200dp"
+        android:id="@+id/stopSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Turn off"
-        />
-    <Button
-        android:id="@+id/discoverableBt"
         android:minWidth="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Discoverable"
-        />
-    <Button
-        android:id="@+id/allFoundBt"
-        android:minWidth="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Found users"
-        />
+        android:text="Stop searching" />
+
     <!--Displays found devices/users-->
     <TextView
         android:id="@+id/listOfUsers"
