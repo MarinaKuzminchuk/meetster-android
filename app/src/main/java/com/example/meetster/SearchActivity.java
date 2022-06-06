@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -16,14 +15,19 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 0;
@@ -49,7 +53,8 @@ public class SearchActivity extends AppCompatActivity {
     };
 
     private TextView btStatus;
-    private ListView foundUsers;
+    private ListView lvNewlyFoundUsers;
+    private ListView lvPreviouslyFoundUsers;
     private ImageView btImage;
     private Button btnSearch;
     private Button btnStopSearch;
@@ -64,7 +69,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         btStatus = findViewById(R.id.statusBt);
-        foundUsers = findViewById(R.id.listOfUsers);
+        lvNewlyFoundUsers = findViewById(R.id.newlyFoundUsers);
+        lvPreviouslyFoundUsers = findViewById(R.id.previouslyFoundUsers);
         btImage = findViewById(R.id.imageBt);
         btnSearch = findViewById(R.id.search);
         btnStopSearch = findViewById(R.id.stopSearch);
@@ -87,12 +93,25 @@ public class SearchActivity extends AppCompatActivity {
             btImage.setImageResource(R.drawable.ic_action_off);
         }
 
-        ArrayList<String> foundUsersList = new ArrayList<>();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_list_item_1, foundUsersList);
-        foundUsers.setAdapter(adapter);
+        Map<String, String> nameFilters = new HashMap<>();
+        nameFilters.put("TEST1", "uni:HTW, specialty:IMI");
+        nameFilters.put("TEST2", "uni:HTW, specialty:IMI");
+        nameFilters.put("TEST3", "uni:HTW, specialty:IMI");
+        nameFilters.put("TEST4", "uni:HTW, specialty:IMI");
+        nameFilters.put("TEST5", "uni:HTW, specialty:IMI");
+        nameFilters.put("TEST6", "uni:HTW, specialty:IMI");
 
-        adapter.add("TEST1");
-        adapter.add("TEST2");
+        List<Map<String, String>> listItems = new ArrayList<>();
+        SimpleAdapter adapter = new SimpleAdapter(SearchActivity.this, listItems, R.layout.found_users_list_item,
+                new String[]{"First Line", "Second Line"}, new int[]{R.id.textViewFoundUserName, R.id.textViewFoundUserFilters});
+
+        for (Map.Entry<String, String> nameFilter : nameFilters.entrySet()) {
+            Map<String, String> listItem = new HashMap<>();
+            listItem.put("First Line", nameFilter.getKey());
+            listItem.put("Second Line", nameFilter.getValue());
+            listItems.add(listItem);
+        }
+        lvNewlyFoundUsers.setAdapter(adapter);
 
         receiver = new BroadcastReceiver() {
             @Override
@@ -107,7 +126,11 @@ public class SearchActivity extends AppCompatActivity {
                     if (device.getName() == null) {
                         return;
                     }
-                    adapter.add(device.getName());
+                    Map<String, String> listItem = new HashMap<>();
+                    listItem.put("First Line", device.getName());
+                    listItem.put("Second Line", device.toString());
+                    listItems.add(listItem);
+                    adapter.notifyDataSetChanged();
                 } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                     if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
                         return;
