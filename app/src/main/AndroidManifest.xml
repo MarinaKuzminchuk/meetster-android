@@ -25,7 +25,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SearchActivity" />
         </activity>
-
         <activity
             android:name=".SearchActivity"
             android:parentActivityName=".FilterActivity">
@@ -33,7 +32,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FilterActivity" />
         </activity>
-
         <activity
             android:name=".FilterActivity"
             android:parentActivityName=".MainActivity">
@@ -41,7 +39,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

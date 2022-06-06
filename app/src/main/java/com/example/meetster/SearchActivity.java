@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -15,10 +16,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 0;
@@ -44,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
     };
 
     private TextView btStatus;
-    private TextView foundUsers;
+    private ListView foundUsers;
     private ImageView btImage;
     private Button btnSearch;
     private Button btnStopSearch;
@@ -82,6 +87,13 @@ public class SearchActivity extends AppCompatActivity {
             btImage.setImageResource(R.drawable.ic_action_off);
         }
 
+        ArrayList<String> foundUsersList = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_list_item_1, foundUsersList);
+        foundUsers.setAdapter(adapter);
+
+        adapter.add("TEST1");
+        adapter.add("TEST2");
+
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -95,7 +107,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (device.getName() == null) {
                         return;
                     }
-                    foundUsers.append(device.getName() + "\n");
+                    adapter.add(device.getName());
                 } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                     if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
                         return;

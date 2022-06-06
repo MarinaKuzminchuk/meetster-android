@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context=".SearchActivity">
 
     <!--Display whether bluetooth is available or not-->
@@ -16,15 +16,14 @@
         android:layout_marginTop="64dp"
         android:text=""
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:textSize="20sp" />
 
     <!--Bluetooth on/off image-->
     <ImageView
         android:id="@+id/imageBt"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        />
+        android:layout_width="150dp"
+        android:layout_height="200dp" />
     <!--Bluetooth on button-->
     <Button
         android:id="@+id/search"
@@ -40,24 +39,8 @@
         android:minWidth="200dp"
         android:text="Stop searching" />
 
-    <!--Displays found devices/users-->
-    <TextView
+    <ListView
         android:id="@+id/listOfUsers"
-        android:minWidth="200dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-<!--    <Button-->
-<!--        android:id="@+id/buttonStartSearch"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="64dp"-->
-<!--        android:onClick="sendMessage"-->
-<!--        android:text="search"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-
+        android:layout_height="match_parent" />
 </LinearLayout>

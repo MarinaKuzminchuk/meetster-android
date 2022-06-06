@@ -8,7 +8,8 @@
         <entry key="..\:/Android project/app/src/main/res/layout/activity_chat.xml" value="0.2" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_filter.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/Android project/app/src/main/res/layout/activity_search.xml" value="0.2" />
+        <entry key="..\:/Android project/app/src/main/res/layout/activity_search.xml" value="0.25" />
+        <entry key="..\:/Android project/app/src/main/res/layout/found_users_list_item.xml" value="0.6" />
       </map>
     </option>
   </component>
