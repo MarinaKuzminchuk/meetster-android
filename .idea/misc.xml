@@ -3,13 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Libraries/Android/Sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout-land/activity_filter.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout-land/activity_main.xml" value="0.2" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_chat.xml" value="0.2" />
+        <entry key="..\:/Android project/app/src/main/res/layout/activity_custom_list_view.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_filter.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_search.xml" value="0.25" />
-        <entry key="..\:/Android project/app/src/main/res/layout/found_users_list_item.xml" value="0.6" />
+        <entry key="..\:/Android project/app/src/main/res/layout/found_users_list_item.xml" value="0.264" />
       </map>
     </option>
   </component>

@@ -2,6 +2,9 @@ package com.example.meetster;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,16 +18,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +54,8 @@ public class SearchActivity extends AppCompatActivity {
     };
 
     private TextView btStatus;
-    private ListView lvNewlyFoundUsers;
-    private ListView lvPreviouslyFoundUsers;
+    private RecyclerView rvNewlyFoundUsers;
+    private RecyclerView rvPreviouslyFoundUsers;
     private ImageView btImage;
     private Button btnSearch;
     private Button btnStopSearch;
@@ -69,8 +70,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         btStatus = findViewById(R.id.statusBt);
-        lvNewlyFoundUsers = findViewById(R.id.newlyFoundUsers);
-        lvPreviouslyFoundUsers = findViewById(R.id.previouslyFoundUsers);
+        rvNewlyFoundUsers = findViewById(R.id.newlyFoundUsers);
+        rvPreviouslyFoundUsers = findViewById(R.id.previouslyFoundUsers);
         btImage = findViewById(R.id.imageBt);
         btnSearch = findViewById(R.id.search);
         btnStopSearch = findViewById(R.id.stopSearch);
@@ -93,25 +94,31 @@ public class SearchActivity extends AppCompatActivity {
             btImage.setImageResource(R.drawable.ic_action_off);
         }
 
-        Map<String, String> nameFilters = new HashMap<>();
-        nameFilters.put("TEST1", "uni:HTW, specialty:IMI");
-        nameFilters.put("TEST2", "uni:HTW, specialty:IMI");
-        nameFilters.put("TEST3", "uni:HTW, specialty:IMI");
-        nameFilters.put("TEST4", "uni:HTW, specialty:IMI");
-        nameFilters.put("TEST5", "uni:HTW, specialty:IMI");
-        nameFilters.put("TEST6", "uni:HTW, specialty:IMI");
+        //create and set layout manager for each RecyclerView
+        RecyclerView.LayoutManager firstLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager secondLayoutManager = new LinearLayoutManager(this);
 
-        List<Map<String, String>> listItems = new ArrayList<>();
-        SimpleAdapter adapter = new SimpleAdapter(SearchActivity.this, listItems, R.layout.found_users_list_item,
-                new String[]{"First Line", "Second Line"}, new int[]{R.id.textViewFoundUserName, R.id.textViewFoundUserFilters});
+        rvNewlyFoundUsers.setLayoutManager(firstLayoutManager);
+        rvPreviouslyFoundUsers.setLayoutManager(secondLayoutManager);
 
-        for (Map.Entry<String, String> nameFilter : nameFilters.entrySet()) {
-            Map<String, String> listItem = new HashMap<>();
-            listItem.put("First Line", nameFilter.getKey());
-            listItem.put("Second Line", nameFilter.getValue());
-            listItems.add(listItem);
-        }
-        lvNewlyFoundUsers.setAdapter(adapter);
+        rvNewlyFoundUsers.addItemDecoration(
+                new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
+        rvPreviouslyFoundUsers.addItemDecoration(
+                new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
+
+        List<List<String>> newlyFoundUsers = new ArrayList<>();
+        newlyFoundUsers.add(Arrays.asList("TEST1", "uni:HTW, specialty:IMI"));
+        newlyFoundUsers.add(Arrays.asList("TEST2", "uni:HTW, specialty:IMI"));
+
+        List<List<String>> previouslyFoundUsers = new ArrayList<>();
+        previouslyFoundUsers.add(Arrays.asList("TEST3", "uni:HTW, specialty:IMI"));
+        previouslyFoundUsers.add(Arrays.asList("TEST4", "uni:HTW, specialty:IMI"));
+        //Initializing and set adapter for each RecyclerView
+        RecyclerViewAdapter newlyFoundUsersAdapter = new RecyclerViewAdapter(this, newlyFoundUsers);
+        RecyclerViewAdapter previouslyFoundUsersAdapter = new RecyclerViewAdapter(this, previouslyFoundUsers);
+
+        rvNewlyFoundUsers.setAdapter(newlyFoundUsersAdapter);
+        rvPreviouslyFoundUsers.setAdapter(previouslyFoundUsersAdapter);
 
         receiver = new BroadcastReceiver() {
             @Override
@@ -126,11 +133,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (device.getName() == null) {
                         return;
                     }
-                    Map<String, String> listItem = new HashMap<>();
-                    listItem.put("First Line", device.getName());
-                    listItem.put("Second Line", device.toString());
-                    listItems.add(listItem);
-                    adapter.notifyDataSetChanged();
+                    newlyFoundUsersAdapter.addFoundUser(device.getName(), device.toString());
                 } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                     if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
                         return;

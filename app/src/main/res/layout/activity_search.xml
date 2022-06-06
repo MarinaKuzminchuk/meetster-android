@@ -1,71 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
     tools:context=".SearchActivity">
 
-    <!--Display whether bluetooth is available or not-->
-    <TextView
-        android:id="@+id/statusBt"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="#000"
-        android:textSize="20sp" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <!--Bluetooth on/off image-->
-    <ImageView
-        android:id="@+id/imageBt"
-        android:layout_width="150dp"
-        android:layout_height="200dp" />
-    <!--Bluetooth on button-->
-    <Button
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:text="Search" />
-    <!--Bluetooth off button-->
-    <Button
-        android:id="@+id/stopSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:text="Stop searching" />
+        <!--Display whether bluetooth is available or not-->
+        <TextView
+            android:id="@+id/statusBt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/newlyFoundUsersLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="10dp"
-        android:text="Newly found users:"
-        android:textSize="24sp" />
+        <!--Bluetooth on/off image-->
+        <ImageView
+            android:id="@+id/imageBt"
+            android:layout_width="150dp"
+            android:layout_height="200dp" />
+        <!--Bluetooth on button-->
+        <Button
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:text="Search" />
+        <!--Bluetooth off button-->
+        <Button
+            android:id="@+id/stopSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:text="Stop searching" />
 
-    <ListView
-        android:id="@+id/newlyFoundUsers"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/newlyFoundUsersLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="Newly found users:"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/previouslyFoundUsersLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="10dp"
-        android:text="Previously found users:"
-        android:textSize="24sp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/newlyFoundUsers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
-    <ListView
-        android:id="@+id/previouslyFoundUsers"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/previouslyFoundUsersLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="Previously found users:"
+            android:textSize="24sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/previouslyFoundUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
