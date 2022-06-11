@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         text = (EditText) findViewById(R.id.editTextTextPersonName);
         confirm = (Button) findViewById(R.id.button);
         confirm.setOnClickListener(this);
-        sharedPref = getPreferences(MODE_PRIVATE);
+        sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
 
         loadText();
     }

@@ -20,15 +20,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 0;
@@ -114,8 +111,8 @@ public class SearchActivity extends AppCompatActivity {
         previouslyFoundUsers.add(Arrays.asList("TEST3", "uni:HTW, specialty:IMI"));
         previouslyFoundUsers.add(Arrays.asList("TEST4", "uni:HTW, specialty:IMI"));
         //Initializing and set adapter for each RecyclerView
-        RecyclerViewAdapter newlyFoundUsersAdapter = new RecyclerViewAdapter(this, newlyFoundUsers);
-        RecyclerViewAdapter previouslyFoundUsersAdapter = new RecyclerViewAdapter(this, previouslyFoundUsers);
+        FilterRecyclerViewAdapter newlyFoundUsersAdapter = new FilterRecyclerViewAdapter(this, newlyFoundUsers);
+        FilterRecyclerViewAdapter previouslyFoundUsersAdapter = new FilterRecyclerViewAdapter(this, previouslyFoundUsers);
 
         rvNewlyFoundUsers.setAdapter(newlyFoundUsersAdapter);
         rvPreviouslyFoundUsers.setAdapter(previouslyFoundUsersAdapter);

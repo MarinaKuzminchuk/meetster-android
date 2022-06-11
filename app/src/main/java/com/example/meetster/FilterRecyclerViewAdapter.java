@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecyclerViewAdapter.ViewHolder> {
     private Activity activity;
     private List<List<String>> foundUsers;
 
-    public RecyclerViewAdapter(Activity activity, List<List<String>> foundUsers) {
+    public FilterRecyclerViewAdapter(Activity activity, List<List<String>> foundUsers) {
         this.activity = activity;
         this.foundUsers = foundUsers;
     }
