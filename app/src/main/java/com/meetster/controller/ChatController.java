@@ -37,11 +37,7 @@ public class ChatController {
         chatReference.orderByChild("timestamp").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                ChatMessage message = new ChatMessage(
-                        snapshot.child("sentBy").getValue(String.class),
-                        snapshot.child("message").getValue(String.class),
-                        new Date(snapshot.child("timestamp").getValue(Long.class)));
-                chatRecyclerViewAdapter.addMessage(message);
+                displayMessage(snapshot, chatRecyclerViewAdapter);
             }
 
             @Override
@@ -64,6 +60,14 @@ public class ChatController {
                 // do nothing when connection to database cancels just for now
             }
         });
+    }
+
+    private void displayMessage(DataSnapshot snapshot, ChatRecyclerViewAdapter chatRecyclerViewAdapter) {
+        ChatMessage message = new ChatMessage(
+                snapshot.child("sentBy").getValue(String.class),
+                snapshot.child("message").getValue(String.class),
+                new Date(snapshot.child("timestamp").getValue(Long.class)));
+        chatRecyclerViewAdapter.addMessage(message);
     }
 
     // Create message in a chat
