@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.meetster.FilterActivity;
 import com.example.meetster.R;
 import com.meetster.controller.AuthenticationController;
 import com.meetster.model.User;
