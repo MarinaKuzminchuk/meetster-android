@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.meetster.view.ChatActivity;
+
 import java.util.Arrays;
 import java.util.List;
 

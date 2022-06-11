@@ -1,4 +1,4 @@
-package com.example.meetster;
+package com.meetster.view;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,14 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meetster.R;
+import com.meetster.model.ChatMessage;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.ViewHolder> {
-    private Activity activity;
-    private List<ChatMessage> messages;
+    private final Activity activity;
+    private final List<ChatMessage> messages;
     private static final SimpleDateFormat timestampFormatter =
             new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -51,10 +53,10 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView sentBy;
-        private TextView text;
-        private TextView timestamp;
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView sentBy;
+        private final TextView text;
+        private final TextView timestamp;
 
         public ViewHolder(View view) {
             super(view);

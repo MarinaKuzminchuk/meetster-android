@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.meetster.view.ChatActivity;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.meetster;
+package com.meetster.model;
 
 import java.util.Date;
 
