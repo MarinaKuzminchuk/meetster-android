@@ -1,4 +1,4 @@
-package com.example.meetster;
+package com.meetster.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.meetster.view.ChatActivity;
+import com.example.meetster.R;
 
 import java.util.Arrays;
 import java.util.List;

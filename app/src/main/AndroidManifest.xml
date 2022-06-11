@@ -21,13 +21,13 @@
         android:theme="@style/Theme.Meetster">
         <activity
             android:name="com.meetster.view.ChatActivity"
-            android:parentActivityName=".SearchActivity">
+            android:parentActivityName="com.meetster.view.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SearchActivity" />
+                android:value="com.meetster.view.SearchActivity" />
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name="com.meetster.view.SearchActivity"
             android:parentActivityName="com.meetster.view.FilterActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

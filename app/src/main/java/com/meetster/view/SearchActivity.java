@@ -1,4 +1,4 @@
-package com.example.meetster;
+package com.meetster.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meetster.view.ChatActivity;
+import com.example.meetster.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

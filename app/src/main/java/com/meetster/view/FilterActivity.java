@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.meetster.R;
-import com.example.meetster.SearchActivity;
 import com.meetster.controller.FilterController;
 import com.meetster.model.Filters;
 
