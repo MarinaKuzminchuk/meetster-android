@@ -16,14 +16,13 @@ import com.meetster.model.User;
 public class AuthenticationActivity extends AppCompatActivity {
     private EditText userNameText;
     private Button confirmBtn;
-    private SharedPreferences sharedPref;
     private AuthenticationController authenticationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         authenticationController = new AuthenticationController(sharedPref);
 
         setContentView(R.layout.activity_main);

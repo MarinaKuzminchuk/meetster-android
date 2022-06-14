@@ -12,4 +12,14 @@ public class Filters {
         this.subject = subject;
         this.tag = tag;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "university='" + university + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", subject='" + subject + '\'' +
+                ", tag='" + tag + '\'' +
+                '}';
+    }
 }

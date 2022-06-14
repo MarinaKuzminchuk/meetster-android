@@ -7,24 +7,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetster.R;
+import com.meetster.model.FoundUser;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecyclerViewAdapter.ViewHolder> {
+public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUsersRecyclerViewAdapter.ViewHolder> {
     private Activity activity;
-    private List<List<String>> foundUsers;
+    private List<FoundUser> foundUsers;
 
-    public FilterRecyclerViewAdapter(Activity activity, List<List<String>> foundUsers) {
+    public FoundUsersRecyclerViewAdapter(Activity activity, List<FoundUser> foundUsers) {
         this.activity = activity;
         this.foundUsers = foundUsers;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view = inflater.inflate(R.layout.found_users_list_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
@@ -39,10 +41,12 @@ public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecycl
         return viewHolder;
     }
 
+    // define how display the item with index = position
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.foundUserName.setText(foundUsers.get(position).get(0));
-        viewHolder.foundUserFilters.setText(foundUsers.get(position).get(1));
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        FoundUser foundUser = foundUsers.get(position);
+        holder.foundUserName.setText(foundUser.user.name);
+        holder.foundUserFilters.setText(foundUser.filters.toString());
     }
 
     @Override
@@ -50,19 +54,21 @@ public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecycl
         return foundUsers.size();
     }
 
-    public void addFoundUser(String name, String filter) {
-        foundUsers.add(Arrays.asList(name, filter));
+    public void addFoundUser(FoundUser foundUser) {
+        foundUsers.add(foundUser);
+        // notify that new data should be displayed
         notifyDataSetChanged();
     }
 
+    // define how the item data will be displayed
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView foundUserName;
         private TextView foundUserFilters;
 
         public ViewHolder(View view) {
             super(view);
-            foundUserName = (TextView) view.findViewById(R.id.textViewFoundUserName);
-            foundUserFilters = (TextView) view.findViewById(R.id.textViewFoundUserFilters);
+            foundUserName = view.findViewById(R.id.textViewFoundUserName);
+            foundUserFilters = view.findViewById(R.id.textViewFoundUserFilters);
         }
     }
 }

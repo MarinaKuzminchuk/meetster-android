@@ -8,26 +8,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!--Display whether bluetooth is available or not-->
-        <TextView
-            android:id="@+id/statusBt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:text=""
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="20sp" />
-
         <!--Bluetooth on/off image-->
         <ImageView
+            android:layout_marginTop="10dp"
             android:id="@+id/imageBt"
-            android:layout_width="150dp"
-            android:layout_height="200dp" />
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
         <!--Bluetooth on button-->
         <Button
             android:id="@+id/search"
@@ -44,34 +34,20 @@
             android:text="Stop searching" />
 
         <TextView
-            android:id="@+id/newlyFoundUsersLabel"
+            android:id="@+id/foundUsersLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingLeft="10dp"
-            android:text="Newly found users:"
+            android:text="Found users:"
             android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newlyFoundUsers"
+            android:id="@+id/foundUsers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
 
-        <TextView
-            android:id="@+id/previouslyFoundUsersLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="10dp"
-            android:text="Previously found users:"
-            android:textSize="24sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/previouslyFoundUsers"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

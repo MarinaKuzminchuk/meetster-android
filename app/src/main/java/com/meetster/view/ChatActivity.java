@@ -17,6 +17,9 @@ import com.meetster.controller.ChatController;
 
 public class ChatActivity extends AppCompatActivity {
 
+    private TextView userNameText;
+    private EditText messageEditText;
+    private ImageView sendBtn;
     private RecyclerView chatRecyclerView;
     private ChatController chatController;
 
@@ -25,9 +28,9 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        final TextView userNameText = findViewById(R.id.chatUserNameText);
-        final EditText messageEditText = findViewById(R.id.messageEditText);
-        final ImageView sendBtn = findViewById(R.id.sendBtn);
+        userNameText = findViewById(R.id.chatUserNameText);
+        messageEditText = findViewById(R.id.messageEditText);
+        sendBtn = findViewById(R.id.sendBtn);
         chatRecyclerView = findViewById(R.id.chatRecyclerView);
         ChatRecyclerViewAdapter chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(this);
         configureChatRecyclerView(chatRecyclerViewAdapter);

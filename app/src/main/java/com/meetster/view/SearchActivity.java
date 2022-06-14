@@ -24,6 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetster.R;
+import com.meetster.model.Filters;
+import com.meetster.model.FoundUser;
+import com.meetster.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,12 +55,10 @@ public class SearchActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
-    private TextView btStatus;
-    private RecyclerView rvNewlyFoundUsers;
-    private RecyclerView rvPreviouslyFoundUsers;
+    private RecyclerView foundUsersRV;
     private ImageView btImage;
-    private Button btnSearch;
-    private Button btnStopSearch;
+    private Button searchBtn;
+    private Button stopSearchBtn;
     private BluetoothAdapter btAdapter;
 
     // Create a BroadcastReceiver for ACTION_FOUND.
@@ -68,23 +69,14 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        btStatus = findViewById(R.id.statusBt);
-        rvNewlyFoundUsers = findViewById(R.id.newlyFoundUsers);
-        rvPreviouslyFoundUsers = findViewById(R.id.previouslyFoundUsers);
+        foundUsersRV = findViewById(R.id.foundUsers);
         btImage = findViewById(R.id.imageBt);
-        btnSearch = findViewById(R.id.search);
-        btnStopSearch = findViewById(R.id.stopSearch);
+        searchBtn = findViewById(R.id.search);
+        stopSearchBtn = findViewById(R.id.stopSearch);
         // initialize an adapter
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-
-        // check if bluetooth is available or not
-        if (btAdapter == null) {
-            btStatus.setText("Bluetooth is not available");
-        } else {
-            btStatus.setText("Bluetooth is available");
-        }
 
         // set image depending on status
         if (btAdapter.isEnabled()) {
@@ -95,29 +87,17 @@ public class SearchActivity extends AppCompatActivity {
 
         //create and set layout manager for each RecyclerView
         RecyclerView.LayoutManager firstLayoutManager = new LinearLayoutManager(this);
-        RecyclerView.LayoutManager secondLayoutManager = new LinearLayoutManager(this);
-
-        rvNewlyFoundUsers.setLayoutManager(firstLayoutManager);
-        rvPreviouslyFoundUsers.setLayoutManager(secondLayoutManager);
-
-        rvNewlyFoundUsers.addItemDecoration(
-                new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
-        rvPreviouslyFoundUsers.addItemDecoration(
+        foundUsersRV.setLayoutManager(firstLayoutManager);
+        // add divider (line) between items in recycler view
+        foundUsersRV.addItemDecoration(
                 new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
 
-        List<List<String>> newlyFoundUsers = new ArrayList<>();
-        newlyFoundUsers.add(Arrays.asList("TEST1", "uni:HTW, specialty:IMI"));
-        newlyFoundUsers.add(Arrays.asList("TEST2", "uni:HTW, specialty:IMI"));
-
-        List<List<String>> previouslyFoundUsers = new ArrayList<>();
-        previouslyFoundUsers.add(Arrays.asList("TEST3", "uni:HTW, specialty:IMI"));
-        previouslyFoundUsers.add(Arrays.asList("TEST4", "uni:HTW, specialty:IMI"));
+        List<FoundUser> previouslyFoundUsers = new ArrayList<>();
+        previouslyFoundUsers.add(new FoundUser(new User("Valera"), new Filters("HTW", "IMI", "GAME", "play")));
+        previouslyFoundUsers.add(new FoundUser(new User("Sara"), new Filters("TU", "ECO", "WEB", "play")));
         //Initializing and set adapter for each RecyclerView
-        FilterRecyclerViewAdapter newlyFoundUsersAdapter = new FilterRecyclerViewAdapter(this, newlyFoundUsers);
-        FilterRecyclerViewAdapter previouslyFoundUsersAdapter = new FilterRecyclerViewAdapter(this, previouslyFoundUsers);
-
-        rvNewlyFoundUsers.setAdapter(newlyFoundUsersAdapter);
-        rvPreviouslyFoundUsers.setAdapter(previouslyFoundUsersAdapter);
+        FoundUsersRecyclerViewAdapter foundUsersAdapter = new FoundUsersRecyclerViewAdapter(this, previouslyFoundUsers);
+        foundUsersRV.setAdapter(foundUsersAdapter);
 
         receiver = new BroadcastReceiver() {
             @Override
@@ -132,7 +112,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (device.getName() == null) {
                         return;
                     }
-                    newlyFoundUsersAdapter.addFoundUser(device.getName(), device.toString());
+                    foundUsersAdapter.addFoundUser(new FoundUser(new User(device.getName()), new Filters("", "", "", "")));
                 } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                     if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -160,7 +140,7 @@ public class SearchActivity extends AppCompatActivity {
         registerReceiver(receiver, intentFilter);
 
         // start search
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Turn on Bluetooth if it's not enabled
@@ -178,7 +158,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         // stop search
-        btnStopSearch.setOnClickListener(new View.OnClickListener() {
+        stopSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (btAdapter.isEnabled()) {

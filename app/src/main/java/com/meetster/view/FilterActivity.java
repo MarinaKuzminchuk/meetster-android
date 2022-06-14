@@ -19,7 +19,6 @@ public class FilterActivity extends AppCompatActivity {
     private EditText subjectText;
     private EditText tagText;
     private Button confirmBtn;
-    private SharedPreferences sharedPref;
     private FilterController filterController;
 
     @Override
@@ -27,7 +26,7 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
-        sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         filterController = new FilterController(sharedPref);
 
         universityText = (EditText) findViewById(R.id.universityText);
