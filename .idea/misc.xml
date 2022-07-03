@@ -15,8 +15,10 @@
         <entry key="..\:/Android project/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="..\:/Android project/app/src/main/res/layout/chat_adapter_layout.xml" value="0.2" />
+        <entry key="..\:/Android project/app/src/main/res/layout/chat_message_item.xml" value="0.155622060709705" />
         <entry key="..\:/Android project/app/src/main/res/layout/chat_message_list_item.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/found_users_list_item.xml" value="0.264" />
+        <entry key="..\:/Android project/app/src/main/res/layout/newly_found_users_list_item.xml" value="0.2" />
       </map>
     </option>
   </component>
@@ -29,7 +31,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.2" />
+        <option name="scale" value="0.264" />
       </ProjectState>
     </option>
   </component>

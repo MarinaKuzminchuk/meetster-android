@@ -14,9 +14,7 @@ import com.meetster.model.Filters;
 
 public class FilterActivity extends AppCompatActivity {
 
-    private EditText universityText;
     private EditText specialtyText;
-    private EditText subjectText;
     private EditText tagText;
     private Button confirmBtn;
     private FilterController filterController;
@@ -29,9 +27,7 @@ public class FilterActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         filterController = new FilterController(sharedPref);
 
-        universityText = (EditText) findViewById(R.id.universityText);
         specialtyText = (EditText) findViewById(R.id.specialtyText);
-        subjectText = (EditText) findViewById(R.id.subjectText);
         tagText = (EditText) findViewById(R.id.tagText);
         confirmBtn = (Button) findViewById(R.id.saveFiltersButton);
 
@@ -40,9 +36,7 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Filters filters = new Filters(
-                        universityText.getText().toString(),
                         specialtyText.getText().toString(),
-                        subjectText.getText().toString(),
                         tagText.getText().toString()
                 );
                 filterController.saveFilters(filters);
@@ -53,9 +47,7 @@ public class FilterActivity extends AppCompatActivity {
         });
 
         Filters filters = filterController.getFilters();
-        universityText.setText(filters.university);
         specialtyText.setText(filters.specialty);
-        subjectText.setText(filters.subject);
         tagText.setText(filters.tag);
     }
 }

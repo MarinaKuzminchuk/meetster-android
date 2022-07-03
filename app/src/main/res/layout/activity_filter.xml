@@ -23,7 +23,8 @@
         android:layout_width="371dp"
         android:layout_height="218dp"
         android:layout_marginTop="64dp"
-        android:text="   Who're you looking for?"
+        android:text="Who're you looking for?"
+        android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,43 +32,45 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/universityLabel"
+        android:id="@+id/specialtyLabel"
         style="@style/Widget.AppCompat.TextView"
-        android:layout_width="219dp"
+        android:layout_width="310dp"
         android:layout_height="20dp"
         android:layout_marginTop="12dp"
-        android:text="University:"
-        app:layout_constraintBottom_toTopOf="@+id/universityText"
+        android:text="Specialty:"
+        app:layout_constraintBottom_toTopOf="@+id/specialtyText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/universityText"
+        android:id="@+id/specialtyText"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="University"
+        android:text="IMI"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <EditText
-        android:id="@+id/specialtyText"
+    <TextView
+        android:id="@+id/tagLabel"
+        style="@style/Widget.AppCompat.TextView"
         android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="Specialty"
+        android:layout_height="20dp"
+        android:layout_marginTop="12dp"
+        android:text="Tag:"
+        app:layout_constraintBottom_toTopOf="@+id/tagText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/universityText" />
+        app:layout_constraintTop_toBottomOf="@+id/specialtyText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/tagText"
@@ -79,18 +82,6 @@
         android:text="Tag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subjectText" />
-
-    <EditText
-        android:id="@+id/subjectText"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="Common subject"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specialtyText" />
+        app:layout_constraintTop_toBottomOf="@+id/tagLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
