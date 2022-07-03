@@ -104,7 +104,7 @@ public class SearchActivity extends AppCompatActivity {
         foundUsersRV.addItemDecoration(
                 new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
 
-        List<FoundUser> previouslyFoundUsers = searchController.getPreviouslyFoundUsers();
+        List<FoundUser> previouslyFoundUsers = searchController.getFoundUsers();
 
         //Initializing and set adapter for each RecyclerView
         foundUsersAdapter = new FoundUsersRecyclerViewAdapter(this, previouslyFoundUsers);
@@ -199,6 +199,9 @@ public class SearchActivity extends AppCompatActivity {
             Filters myFilters = filterController.getFilters();
             if (myFilters.specialty.equals(specialty) || myFilters.tag.equals(tag)){
                 foundUsersAdapter.addFoundUser(foundUser);
+                List<FoundUser> updatedFoundUsers = foundUsersAdapter.getFoundUsers();
+                // save all found users after new user was found
+                searchController.saveFoundUsers(updatedFoundUsers);
             }
         }
     }
@@ -207,14 +210,14 @@ public class SearchActivity extends AppCompatActivity {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (resultCode == RESULT_OK) {
                 btImage.setImageResource(R.drawable.ic_action_on);
-                showToast("Bluetooth is on");
+//                showToast("Bluetooth is on");
             } else {
                 // user denied to turn on bluetooth
                 showToast("Could not turn on bluetooth");
             }
         } else if (requestCode == REQUEST_DISCOVER_BT) {
             if (resultCode == DISCOVERABLE_DURATION_IN_SECONDS) {
-                showToast("You can be discovered now for " + DISCOVERABLE_DURATION_IN_SECONDS + " seconds");
+//                showToast("You can be discovered now for " + DISCOVERABLE_DURATION_IN_SECONDS + " seconds");
             } else {
                 // user denied to turn on discovery
                 showToast("You cannot be discovered");
@@ -225,14 +228,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * opens the chat window when another user is selected
-     */
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, ChatActivity.class);
-        startActivity(intent);
     }
 
     public static void requestBlePermissions(Activity activity, int requestCode) {

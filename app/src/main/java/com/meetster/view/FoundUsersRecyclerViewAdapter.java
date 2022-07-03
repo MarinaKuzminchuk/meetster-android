@@ -45,7 +45,7 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = activity.getLayoutInflater();
         View view;
-        if (viewType == NEWLY_FOUND_VIEW_TYPE){
+        if (viewType == NEWLY_FOUND_VIEW_TYPE) {
             view = inflater.inflate(R.layout.newly_found_users_list_item, parent, false);
         } else {
             view = inflater.inflate(R.layout.found_users_list_item, parent, false);
@@ -82,8 +82,24 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
 
     public void addFoundUser(FoundUser foundUser) {
         newlyFoundUsers.add(foundUser);
+        // remove previously found user if it matches newly found user
+        for (int i = 0; i < previouslyFoundUsers.size(); i++) {
+            FoundUser previouslyFoundUser = previouslyFoundUsers.get(i);
+            if (previouslyFoundUser.user.name.equals(foundUser.user.name)) {
+                previouslyFoundUsers.remove(i);
+                break;
+            }
+        }
         // notify that new data should be displayed
         notifyDataSetChanged();
+    }
+
+    // returns newly found users and previously found users as a single list
+    public List<FoundUser> getFoundUsers() {
+        List<FoundUser> foundUsers = new ArrayList<>();
+        foundUsers.addAll(newlyFoundUsers);
+        foundUsers.addAll(previouslyFoundUsers);
+        return foundUsers;
     }
 
     // define how the item data will be displayed

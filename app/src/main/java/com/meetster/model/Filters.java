@@ -12,7 +12,7 @@ public class Filters {
     @Override
     public String toString() {
         return "{" +
-                ", specialty='" + specialty + '\'' +
+                "specialty='" + specialty + '\'' +
                 ", tag='" + tag + '\'' +
                 '}';
     }

@@ -3,14 +3,18 @@ package com.meetster.controller;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.meetster.model.FoundUser;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class SearchController {
 
-    public static final String PREVIOUSLY_FOUND_USERS = "previouslyFoundUsers";
+    public static final String FOUND_USERS = "foundUsers";
     private final SharedPreferences sharedPref;
     private final Gson gson;
 
@@ -21,18 +25,19 @@ public class SearchController {
 
     // get json containing previously found users from shared preferences
     // parse this json to a list of found users
-    public List<FoundUser> getPreviouslyFoundUsers() {
-        String json = sharedPref.getString(PREVIOUSLY_FOUND_USERS, "");
-        FoundUser[] foundUsers = gson.fromJson(json, FoundUser[].class);
-        return Arrays.asList(foundUsers);
+    public List<FoundUser> getFoundUsers() {
+        String json = sharedPref.getString(FOUND_USERS, "");
+        // https://stackoverflow.com/questions/5554217/deserialize-a-listt-object-with-gson
+        Type foundUserListType = new TypeToken<ArrayList<FoundUser>>(){}.getType();
+        return gson.fromJson(json, foundUserListType);
     }
 
     // convert previously found users to json
     // and save it in shared preferences to save them on device
-    public void savePreviouslyFoundUsers(List<FoundUser> previouslyFoundUsers) {
-        String json = gson.toJson(previouslyFoundUsers);
+    public void saveFoundUsers(List<FoundUser> foundUsers) {
+        String json = gson.toJson(foundUsers);
         SharedPreferences.Editor ed = sharedPref.edit();
-        ed.putString(PREVIOUSLY_FOUND_USERS, json);
+        ed.putString(FOUND_USERS, json);
         ed.commit();
     }
 }
