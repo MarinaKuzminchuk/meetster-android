@@ -10,12 +10,26 @@
         android:id="@+id/userNameText"
         android:layout_width="310dp"
         android:layout_height="45dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="304dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Your name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/nameIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="316dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/person_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.348"
+        app:layout_constraintStart_toEndOf="@+id/userNameText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

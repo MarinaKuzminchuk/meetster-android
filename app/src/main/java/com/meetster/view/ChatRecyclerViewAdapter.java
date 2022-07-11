@@ -1,6 +1,7 @@
 package com.meetster.view;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         ChatMessage chatMessage = messages.get(position);
         holder.sentBy.setText(chatMessage.sentBy);
         holder.text.setText(chatMessage.text);
-        holder.timestamp.setText(timestampFormatter.format(chatMessage.timestamp));
+//        holder.timestamp.setText(timestampFormatter.format(chatMessage.timestamp));
     }
 
     @Override
@@ -56,13 +57,14 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView sentBy;
         private final TextView text;
-        private final TextView timestamp;
+//        private final TextView timestamp;
 
         public ViewHolder(View view) {
             super(view);
             sentBy = (TextView) view.findViewById(R.id.textViewMessageSentBy);
             text = (TextView) view.findViewById(R.id.textViewMessageText);
-            timestamp = (TextView) view.findViewById(R.id.textViewMessageTimestamp);
+//            timestamp = (TextView) view.findViewById(R.id.opoTextViewMessageTimestamp);
+            view.setDrawingCacheBackgroundColor(Color.GRAY);
         }
     }
 }
