@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class ChatController {
 
-    public static final String DATABASE_URL = "https://meetsterchat-default-rtdb.europe-west1.firebasedatabase.app/";
+    public static final String DATABASE_URL = "https://meetster-chat-default-rtdb.europe-west1.firebasedatabase.app/";
     private final String myName;
     private final DatabaseReference chatReference;
 

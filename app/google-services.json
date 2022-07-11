@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "880165084609",
-    "project_id": "meetsterchat",
-    "storage_bucket": "meetsterchat.appspot.com"
+    "project_number": "307999534619",
+    "project_id": "meetster-chat",
+    "storage_bucket": "meetster-chat.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:880165084609:android:e52834f9b5f99594b12340",
+        "mobilesdk_app_id": "1:307999534619:android:da8c2a239bb5cfd92512be",
         "android_client_info": {
-          "package_name": "com.example.meetster"
+          "package_name": "com.meetster"
         }
       },
       "oauth_client": [
         {
-          "client_id": "880165084609-t3eup986sukdbofut4ntncofr7i32dah.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.meetster",
-            "certificate_hash": "e4c575fa9f63713e8bf6318789bc621082345555"
-          }
-        },
-        {
-          "client_id": "880165084609-01klhn0ks7s9m3m1etc5rkt36ms6190j.apps.googleusercontent.com",
+          "client_id": "307999534619-9nrmh85k5aeldjru12pkocrmc799c1gg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB_xVlOokbj6bDvSHbVc7c1nlGd2IX7_lY"
+          "current_key": "AIzaSyBizwz51XsvFTITVtXyQCIUYX6Kt8x8PBI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "880165084609-01klhn0ks7s9m3m1etc5rkt36ms6190j.apps.googleusercontent.com",
+              "client_id": "307999534619-9nrmh85k5aeldjru12pkocrmc799c1gg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

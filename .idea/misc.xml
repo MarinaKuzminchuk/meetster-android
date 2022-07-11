@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Libraries/Android/Sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.264" />
+        <entry key="..\:/Android project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.163" />
         <entry key="..\:/Android project/app/src/main/res/drawable/incom_msg.xml" value="0.1415" />
+        <entry key="..\:/Android project/app/src/main/res/drawable/incoming_msg.xml" value="0.11" />
         <entry key="..\:/Android project/app/src/main/res/drawable/my_msg.xml" value="0.1415" />
         <entry key="..\:/Android project/app/src/main/res/drawable/my_msg_back.xml" value="0.1935" />
         <entry key="..\:/Android project/app/src/main/res/drawable/opo_msg_back.xml" value="0.1935" />
@@ -17,6 +19,8 @@
         <entry key="..\:/Android project/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="..\:/Android project/app/src/main/res/layout/chat_adapter_layout.xml" value="0.2" />
+        <entry key="..\:/Android project/app/src/main/res/layout/chat_adapter_layout_incoming.xml" value="0.14267015706806283" />
+        <entry key="..\:/Android project/app/src/main/res/layout/chat_adapter_layout_me.xml" value="0.16589434661723818" />
         <entry key="..\:/Android project/app/src/main/res/layout/chat_message_item.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/chat_message_list_item.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout/found_users_list_item.xml" value="0.264" />

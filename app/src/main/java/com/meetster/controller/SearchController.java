@@ -27,9 +27,13 @@ public class SearchController {
     // parse this json to a list of found users
     public List<FoundUser> getFoundUsers() {
         String json = sharedPref.getString(FOUND_USERS, "");
-        // https://stackoverflow.com/questions/5554217/deserialize-a-listt-object-with-gson
-        Type foundUserListType = new TypeToken<ArrayList<FoundUser>>(){}.getType();
-        return gson.fromJson(json, foundUserListType);
+        if (json.equals("")) {
+            return new ArrayList<>();
+        } else {
+            // https://stackoverflow.com/questions/5554217/deserialize-a-listt-object-with-gson
+            Type foundUserListType = new TypeToken<ArrayList<FoundUser>>(){}.getType();
+            return gson.fromJson(json, foundUserListType);
+        }
     }
 
     // convert previously found users to json

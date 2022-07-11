@@ -32,14 +32,16 @@ public class ChatActivity extends AppCompatActivity {
         messageEditText = findViewById(R.id.messageEditText);
         sendBtn = findViewById(R.id.sendBtn);
         chatRecyclerView = findViewById(R.id.chatRecyclerView);
-        ChatRecyclerViewAdapter chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(this);
-        configureChatRecyclerView(chatRecyclerViewAdapter);
 
         // Get chat user name passed from the search activity
         // (inside recycler view when we click on the found user)
         String userName = getIntent().getStringExtra("chat-user");
         userNameText.setText(userName);
+
+        ChatRecyclerViewAdapter chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(this, userName);
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
+        configureChatRecyclerView(chatRecyclerViewAdapter);
+
         chatController = new ChatController(sharedPref, userName, chatRecyclerViewAdapter);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +60,5 @@ public class ChatActivity extends AppCompatActivity {
         chatRecyclerView.setAdapter(chatRecyclerViewAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         chatRecyclerView.setLayoutManager(layoutManager);
-        chatRecyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 }

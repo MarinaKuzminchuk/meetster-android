@@ -4,38 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_alignParentEnd="true">
+    android:layout_marginTop="10dp">
 
     <LinearLayout
-        android:id="@+id/my_Layout"
+        android:id="@+id/incomingLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="100dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/myMessageText"
-            android:layout_width="match_parent"
+            android:id="@+id/incomingMessageText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/my_msg"
+            android:background="@drawable/incoming_msg"
             android:padding="20dp"
-            android:text="This is my message"
+            android:text="This is opponent message"
             android:textColor="#424242" />
 
         <TextView
-            android:id="@+id/myMessageTimestamp"
+            android:id="@+id/incomingMessageTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_marginTop="2dp"
             android:text="Timestamp"
+            android:textAlignment="center"
             android:textColor="#000"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myMessageText"
+            app:layout_constraintTop_toBottomOf="@+id/incomingMessageText"
             tools:ignore="MissingConstraints" />
 
     </LinearLayout>

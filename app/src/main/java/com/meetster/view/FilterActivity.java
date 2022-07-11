@@ -36,8 +36,8 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Filters filters = new Filters(
-                        specialtyText.getText().toString(),
-                        tagText.getText().toString()
+                        specialtyText.getText().toString().trim(),
+                        tagText.getText().toString().trim()
                 );
                 filterController.saveFilters(filters);
                 Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
