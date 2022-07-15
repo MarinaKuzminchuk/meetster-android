@@ -72,7 +72,7 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
             foundUser = previouslyFoundUsers.get(position - newlyFoundUsers.size());
         }
         holder.foundUserName.setText(foundUser.user.name);
-        holder.foundUserFilters.setText(foundUser.filters.toString());
+        holder.foundUserFilter.setText("from " + foundUser.filters.specialty + " with tag " + foundUser.filters.tag);
     }
 
     @Override
@@ -105,12 +105,12 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
     // define how the item data will be displayed
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView foundUserName;
-        private TextView foundUserFilters;
+        private TextView foundUserFilter;
 
         public ViewHolder(View view) {
             super(view);
             foundUserName = view.findViewById(R.id.textViewFoundUserName);
-            foundUserFilters = view.findViewById(R.id.textViewFoundUserFilters);
+            foundUserFilter = view.findViewById(R.id.textViewFoundUserFilter);
         }
     }
 }

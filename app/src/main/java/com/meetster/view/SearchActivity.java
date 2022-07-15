@@ -2,7 +2,6 @@ package com.meetster.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +30,6 @@ import com.meetster.model.Filters;
 import com.meetster.model.FoundUser;
 import com.meetster.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -100,9 +98,6 @@ public class SearchActivity extends AppCompatActivity {
         //create and set layout manager for each RecyclerView
         RecyclerView.LayoutManager firstLayoutManager = new LinearLayoutManager(this);
         foundUsersRV.setLayoutManager(firstLayoutManager);
-        // add divider (line) between items in recycler view
-        foundUsersRV.addItemDecoration(
-                new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
 
         List<FoundUser> previouslyFoundUsers = searchController.getFoundUsers();
 

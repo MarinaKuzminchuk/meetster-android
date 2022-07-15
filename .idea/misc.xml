@@ -9,8 +9,11 @@
         <entry key="..\:/Android project/app/src/main/res/drawable/incoming_msg.xml" value="0.11" />
         <entry key="..\:/Android project/app/src/main/res/drawable/my_msg.xml" value="0.1415" />
         <entry key="..\:/Android project/app/src/main/res/drawable/my_msg_back.xml" value="0.1935" />
+        <entry key="..\:/Android project/app/src/main/res/drawable/new_users_form.xml" value="0.1955" />
+        <entry key="..\:/Android project/app/src/main/res/drawable/old_users_form.xml" value="0.1955" />
         <entry key="..\:/Android project/app/src/main/res/drawable/opo_msg_back.xml" value="0.1935" />
         <entry key="..\:/Android project/app/src/main/res/drawable/round_back_light_10.xml" value="0.229" />
+        <entry key="..\:/Android project/app/src/main/res/drawable/round_corners.xml" value="0.2" />
         <entry key="..\:/Android project/app/src/main/res/layout-land/activity_filter.xml" value="0.264" />
         <entry key="..\:/Android project/app/src/main/res/layout-land/activity_main.xml" value="0.2" />
         <entry key="..\:/Android project/app/src/main/res/layout/activity_chat.xml" value="0.2" />

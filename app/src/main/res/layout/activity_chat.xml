@@ -13,16 +13,6 @@
         android:layout_height="wrap_content"
         tools:ignore="UselessParent">
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/imageViewChatUser"-->
-        <!--            android:layout_width="35dp"-->
-        <!--            android:layout_height="35dp"-->
-        <!--            android:background="@drawable/round_back_light_10"-->
-        <!--            android:paddingStart="12dp"-->
-        <!--            android:paddingEnd="2dp"-->
-        <!--            android:layout_centerVertical="true"-->
-        <!--            android:layout_marginStart="20dp"-->
-        <!--            android:layout_marginTop="40dp" />-->
         <ImageView
             android:id="@+id/profilePic"
             android:layout_width="40dp"
@@ -50,14 +40,6 @@
                 android:textColor="#424242"
                 android:textSize="18dp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Online"
-                android:textColor="#00C853"
-                android:textSize="13dp" />
         </LinearLayout>
     </RelativeLayout>
 

@@ -18,12 +18,13 @@
 
         <TextView
             android:id="@+id/myMessageText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/my_msg"
             android:padding="20dp"
             android:text="This is my message"
-            android:textColor="#424242" />
+            android:textColor="#424242"
+            android:layout_gravity="end" />
 
         <TextView
             android:id="@+id/myMessageTimestamp"
