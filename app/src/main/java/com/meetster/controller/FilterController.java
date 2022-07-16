@@ -6,8 +6,8 @@ import com.meetster.model.Filters;
 
 public class FilterController {
 
-    private static final String SAVED_SPECIALITY = "saved_specialty";
-    private static final String SAVED_TAG = "saved_tag";
+    static final String SAVED_SPECIALITY = "saved_specialty";
+    static final String SAVED_TAG = "saved_tag";
     private final SharedPreferences sharedPref;
 
     public FilterController(SharedPreferences sharedPref) {

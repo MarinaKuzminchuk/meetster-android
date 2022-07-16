@@ -1,7 +1,6 @@
 package com.meetster.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.meetster.R;
 import com.meetster.controller.ChatController;
+import com.meetster.controller.ChatMessageListener;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -42,7 +42,8 @@ public class ChatActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         configureChatRecyclerView(chatRecyclerViewAdapter);
 
-        chatController = new ChatController(sharedPref, userName, chatRecyclerViewAdapter);
+        ChatMessageListener chatMessageListener = new ChatMessageListener(chatRecyclerViewAdapter);
+        chatController = new ChatController(userName, sharedPref, chatMessageListener);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
