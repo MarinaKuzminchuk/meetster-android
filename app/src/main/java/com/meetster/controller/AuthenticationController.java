@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.meetster.model.User;
 
 public class AuthenticationController {
+
     static final String SAVED_USER_NAME = "saved_user_name";
     private final SharedPreferences sharedPref;
 

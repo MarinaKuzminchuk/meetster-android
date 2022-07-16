@@ -14,14 +14,19 @@ import java.util.UUID;
 
 public class ChatController {
 
+    static final String SAVED_USER_NAME = "saved_user_name";
     public static final String DATABASE_URL = "https://meetster-chat-default-rtdb.europe-west1.firebasedatabase.app/";
     private final String myName;
     private final DatabaseReference chatReference;
 
     public ChatController(String userName, SharedPreferences sharedPref, ChatMessageListener listener) {
-        myName = sharedPref.getString("saved_user_name", "");
+        this(FirebaseDatabase.getInstance(DATABASE_URL), userName, sharedPref, listener);
+    }
+
+    // This constructor is used only for testing to pass FirebaseDatabase mock
+    ChatController(FirebaseDatabase database, String userName, SharedPreferences sharedPref, ChatMessageListener listener) {
+        myName = sharedPref.getString(SAVED_USER_NAME, "");
         String chatName = getChatName(myName, userName);
-        FirebaseDatabase database = FirebaseDatabase.getInstance(DATABASE_URL);
         chatReference = database.getReference("chats").child(chatName);
         // Subscribe to messages created in a chat to display them in recycler view
         chatReference.orderByChild("timestamp").addChildEventListener(listener);
