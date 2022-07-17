@@ -8,7 +8,6 @@ import static org.mockito.Mockito.when;
 
 import android.content.SharedPreferences;
 
-import com.meetster.authentication.AuthenticationController;
 import com.meetster.model.User;
 
 import org.junit.Test;

@@ -2,8 +2,6 @@ package com.meetster.authentication;
 
 import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,9 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.meetster.R;
-import com.meetster.model.User;
 import com.meetster.filter.FilterActivity;
+import com.meetster.model.User;
 
 public class AuthenticationActivity extends AppCompatActivity {
     private EditText userNameText;

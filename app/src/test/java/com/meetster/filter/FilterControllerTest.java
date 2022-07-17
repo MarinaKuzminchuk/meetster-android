@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import android.content.SharedPreferences;
 
-import com.meetster.filter.FilterController;
 import com.meetster.model.Filters;
 
 import org.junit.Test;

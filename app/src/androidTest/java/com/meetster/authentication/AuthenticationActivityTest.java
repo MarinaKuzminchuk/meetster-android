@@ -23,7 +23,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import com.example.meetster.R;
-import com.meetster.authentication.AuthenticationActivity;
 import com.meetster.filter.FilterActivity;
 
 import org.junit.After;

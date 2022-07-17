@@ -4,10 +4,6 @@ import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
 import static com.meetster.IntentExtraKeys.FILTERS_SPECIALTY;
 import static com.meetster.IntentExtraKeys.FILTERS_TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -20,11 +16,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.meetster.R;
-import com.meetster.search.bluetooth.BluetoothBroadcastReceiver;
-import com.meetster.search.bluetooth.BluetoothClient;
 import com.meetster.model.Filters;
 import com.meetster.model.User;
+import com.meetster.search.bluetooth.BluetoothBroadcastReceiver;
+import com.meetster.search.bluetooth.BluetoothClient;
 
 public class SearchActivity extends AppCompatActivity {
 

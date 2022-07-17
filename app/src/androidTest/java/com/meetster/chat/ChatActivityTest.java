@@ -8,7 +8,6 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
 import static com.meetster.IntentExtraKeys.CHAT_USER;
 import static org.hamcrest.CoreMatchers.not;
@@ -24,7 +23,6 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.meetster.R;
-import com.meetster.chat.ChatActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

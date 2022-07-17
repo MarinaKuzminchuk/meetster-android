@@ -11,8 +11,8 @@ import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
 
-import com.meetster.search.SearchController;
 import com.meetster.search.FoundUsersRecyclerViewAdapter;
+import com.meetster.search.SearchController;
 
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     private static final int REQUEST_DISCOVER_BT = 1;

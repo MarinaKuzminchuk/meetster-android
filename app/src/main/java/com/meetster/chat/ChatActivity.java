@@ -3,16 +3,16 @@ package com.meetster.chat;
 import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
 import static com.meetster.IntentExtraKeys.CHAT_USER;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetster.R;
 import com.meetster.model.User;

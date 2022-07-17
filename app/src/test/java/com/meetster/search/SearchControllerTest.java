@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 import com.meetster.model.Filters;
 import com.meetster.model.FoundUser;
 import com.meetster.model.User;
-import com.meetster.search.SearchController;
 
 import org.junit.Test;
 
