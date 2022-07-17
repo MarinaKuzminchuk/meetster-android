@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -102,42 +101,8 @@ public class SearchActivity extends AppCompatActivity {
         foundUsersAdapter = new FoundUsersRecyclerViewAdapter(this, authenticatedUser, previouslyFoundUsers);
         foundUsersRV.setAdapter(foundUsersAdapter);
 
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (action.equals(BluetoothDevice.ACTION_FOUND)) {
-                    // Discovery has found a device
-                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    if (device.getName() == null) {
-                        return;
-                    }
-                    filterFoundUser(device.getName());
-                } else if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
-                    if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    if (btAdapter.isEnabled() && !btAdapter.isDiscovering()) {
-                        // Make our device discoverable when bluetooth was turned on
-                        showToast("Making your device discoverable");
-                        if (btAdapter.getState() == BluetoothAdapter.STATE_ON) {
-                            String btName = "meetster/" + authenticatedUser.name + "/" + filters.specialty + "/" + filters.tag;
-                            btAdapter.setName(btName);
-                        }
-                        if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-                            return;
-                        }
-                        btAdapter.startDiscovery();
-                        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-                        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERABLE_DURATION_IN_SECONDS);
-                        startActivityForResult(discoverableIntent, REQUEST_DISCOVER_BT);
-                    }
-                }
-            }
-        };
+        receiver = new BluetoothBroadcastReceiver(
+                this, authenticatedUser, filters, btAdapter, foundUsersAdapter, searchController);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -149,15 +114,12 @@ public class SearchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Turn on Bluetooth if it's not enabled
                 if (!btAdapter.isEnabled()) {
-                    showToast("Turning on bluetooth");
                     requestBlePermissions(SearchActivity.this, REQUEST_ENABLE_BT);
                     Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                     if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
                     startActivityForResult(intent, REQUEST_ENABLE_BT);
-                } else {
-                    showToast("Bluetooth is already on");
                 }
             }
         });
@@ -166,57 +128,27 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (btAdapter.isEnabled()) {
-                    showToast("Turning off bluetooth");
                     if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
                     btAdapter.disable();
                     btImage.setImageResource(R.drawable.ic_action_off);
-                } else {
-                    showToast("Bluetooth is already off");
                 }
             }
         });
-    }
-
-    private void filterFoundUser(String btName) {
-        if (btName.startsWith("meetster")){
-            String[] parts = btName.split("/");
-            String name = parts[1];
-            String specialty = parts[2];
-            String tag = parts[3];
-            FoundUser foundUser = new FoundUser(new User(name), new Filters(specialty, tag));
-            if (filters.specialty.equals(specialty) || filters.tag.equals(tag)){
-                foundUsersAdapter.addFoundUser(foundUser);
-                List<FoundUser> updatedFoundUsers = foundUsersAdapter.getFoundUsers();
-                // save all found users after new user was found
-                searchController.saveFoundUsers(updatedFoundUsers);
-            }
-        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_ENABLE_BT) {
             if (resultCode == RESULT_OK) {
                 btImage.setImageResource(R.drawable.ic_action_on);
-//                showToast("Bluetooth is on");
-            } else {
-                // user denied to turn on bluetooth
-                showToast("Could not turn on bluetooth");
             }
         } else if (requestCode == REQUEST_DISCOVER_BT) {
-            if (resultCode == DISCOVERABLE_DURATION_IN_SECONDS) {
-//                showToast("You can be discovered now for " + DISCOVERABLE_DURATION_IN_SECONDS + " seconds");
-            } else {
-                // user denied to turn on discovery
-                showToast("You cannot be discovered");
+            if (resultCode != DISCOVERABLE_DURATION_IN_SECONDS) {
+                Toast.makeText(this, "You cannot be discovered", Toast.LENGTH_SHORT).show();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void requestBlePermissions(Activity activity, int requestCode) {
