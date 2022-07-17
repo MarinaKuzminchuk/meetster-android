@@ -87,26 +87,10 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
         return newlyFoundUsers.size() + previouslyFoundUsers.size();
     }
 
-    public void addFoundUser(FoundUser foundUser) {
-        newlyFoundUsers.add(foundUser);
-        // remove previously found user if it matches newly found user
-        for (int i = 0; i < previouslyFoundUsers.size(); i++) {
-            FoundUser previouslyFoundUser = previouslyFoundUsers.get(i);
-            if (previouslyFoundUser.user.name.equals(foundUser.user.name)) {
-                previouslyFoundUsers.remove(i);
-                break;
-            }
-        }
-        // notify that new data should be displayed
+    public void updateData(List<FoundUser> newlyFoundUsers, List<FoundUser> previouslyFoundUsers) {
+        this.newlyFoundUsers = newlyFoundUsers;
+        this.previouslyFoundUsers = previouslyFoundUsers;
         notifyDataSetChanged();
-    }
-
-    // returns newly found users and previously found users as a single list
-    public List<FoundUser> getFoundUsers() {
-        List<FoundUser> foundUsers = new ArrayList<>();
-        foundUsers.addAll(newlyFoundUsers);
-        foundUsers.addAll(previouslyFoundUsers);
-        return foundUsers;
     }
 
     // define how the item data will be displayed

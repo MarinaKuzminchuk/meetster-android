@@ -20,7 +20,9 @@ import java.util.List;
 
 public class SearchControllerTest {
     private SharedPreferences sharedPreferences = mock(SharedPreferences.class);
-    private SearchController searchController = new SearchController(sharedPreferences);
+    private User authenticatedUser = new User("testUserName");
+    private Filters filters = new Filters("testSpecialty", "testTag");
+    private SearchController searchController = new SearchController(sharedPreferences, authenticatedUser, filters);
     private Gson gson = new Gson();
 
     @Test

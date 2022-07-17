@@ -85,20 +85,20 @@ public class SearchActivity extends AppCompatActivity {
         btImage.setImageResource(R.drawable.ic_action_off);
 
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
-        searchController = new SearchController(sharedPref);
+        searchController = new SearchController(sharedPref, authenticatedUser, filters);
 
         //create and set layout manager for each RecyclerView
         RecyclerView.LayoutManager firstLayoutManager = new LinearLayoutManager(this);
         foundUsersRV.setLayoutManager(firstLayoutManager);
 
-        List<FoundUser> previouslyFoundUsers = searchController.getFoundUsers();
+        List<FoundUser> previouslyFoundUsers = searchController.getPreviouslyFoundUsers();
 
         //Initializing and set adapter for each RecyclerView
         foundUsersAdapter = new FoundUsersRecyclerViewAdapter(this, authenticatedUser, previouslyFoundUsers);
         foundUsersRV.setAdapter(foundUsersAdapter);
 
         receiver = new BluetoothBroadcastReceiver(
-                this, authenticatedUser, filters, btAdapter, foundUsersAdapter, searchController);
+                this, btAdapter, foundUsersAdapter, searchController);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
