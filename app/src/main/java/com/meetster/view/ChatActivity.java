@@ -49,8 +49,10 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message = messageEditText.getText().toString();
-                chatController.sendMessage(message);
-                messageEditText.setText("");
+                if (!message.isEmpty()) {
+                    chatController.sendMessage(message);
+                    messageEditText.setText("");
+                }
             }
         });
     }
