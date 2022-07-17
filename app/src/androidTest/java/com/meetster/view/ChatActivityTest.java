@@ -69,10 +69,14 @@ public class ChatActivityTest {
 
         onView(withId(R.id.chatUserNameText)).check(matches(withText(chatUserName)));
         onView(withId(R.id.messageEditText)).check(matches(withText("")));
+        verifyMessageAdded(0, withText(testMessage), withId(R.id.messageTimestamp));
+    }
+
+    private void verifyMessageAdded(int i, Matcher<View> viewMatcher, Matcher<View> viewMatcher2) {
         onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(0, hasDescendant(withText(testMessage)))));
+                .check(matches(atPosition(i, hasDescendant(viewMatcher))));
         onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(0, hasDescendant(withId(R.id.myMessageTimestamp)))));
+                .check(matches(atPosition(i, hasDescendant(viewMatcher2))));
     }
 
     @Test
@@ -84,14 +88,8 @@ public class ChatActivityTest {
 
         onView(withId(R.id.chatUserNameText)).check(matches(withText(chatUserName)));
         onView(withId(R.id.messageEditText)).check(matches(withText("")));
-        onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(0, hasDescendant(withText(testMessage1)))));
-        onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(0, hasDescendant(withId(R.id.myMessageTimestamp)))));
-        onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(1, hasDescendant(withText(testMessage2)))));
-        onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(1, hasDescendant(withId(R.id.myMessageTimestamp)))));
+        verifyMessageAdded(0, withText(testMessage1), withId(R.id.messageTimestamp));
+        verifyMessageAdded(1, withText(testMessage2), withId(R.id.messageTimestamp));
     }
 
     @Test
@@ -112,10 +110,7 @@ public class ChatActivityTest {
         startChatBetweenUsers(new User(chatUserName), new User(authenticatedUserName));
 
         onView(withId(R.id.chatUserNameText)).check(matches(withText(authenticatedUserName)));
-        onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(0, hasDescendant(withText(testMessage)))));
-        onView(withId(R.id.chatRecyclerView))
-                .check(matches(atPosition(0, hasDescendant(withId(R.id.incomingMessageTimestamp)))));
+        verifyMessageAdded(0, withText(testMessage), withId(R.id.messageTimestamp));
     }
 
     private void sendTestMessage(String testMessage) {

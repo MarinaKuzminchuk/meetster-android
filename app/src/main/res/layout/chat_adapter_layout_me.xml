@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/myMessageText"
+            android:id="@+id/messageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/my_msg"
@@ -27,7 +27,7 @@
             android:layout_gravity="end" />
 
         <TextView
-            android:id="@+id/myMessageTimestamp"
+            android:id="@+id/messageTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -36,7 +36,7 @@
             android:textColor="#000"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myMessageText"
+            app:layout_constraintTop_toBottomOf="@+id/messageText"
             tools:ignore="MissingConstraints" />
 
     </LinearLayout>

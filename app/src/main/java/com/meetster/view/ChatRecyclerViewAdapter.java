@@ -49,11 +49,10 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         View view;
         if (viewType == MY_MESSAGE) {
             view = inflater.inflate(R.layout.chat_adapter_layout_me, parent, false);
-            return new ViewHolder(view, R.id.myMessageText, R.id.myMessageTimestamp);
         } else {
             view = inflater.inflate(R.layout.chat_adapter_layout_incoming, parent, false);
-            return new ViewHolder(view, R.id.incomingMessageText, R.id.incomingMessageTimestamp);
         }
+        return new ViewHolder(view);
     }
 
     @Override
@@ -77,10 +76,10 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         private final TextView text;
         private final TextView timestamp;
 
-        public ViewHolder(View view, int messageTextId, int messageTimestampId) {
+        public ViewHolder(View view) {
             super(view);
-            text = view.findViewById(messageTextId);
-            timestamp = view.findViewById(messageTimestampId);
+            text = view.findViewById(R.id.messageText);
+            timestamp = view.findViewById(R.id.messageTimestamp);
         }
     }
 }
