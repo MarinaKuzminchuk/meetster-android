@@ -1,7 +1,8 @@
 package com.meetster.view;
 
 import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.view.IntentExtraKeys.FILTERS;
+import static com.meetster.view.IntentExtraKeys.FILTERS_SPECIALTY;
+import static com.meetster.view.IntentExtraKeys.FILTERS_TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,8 +51,8 @@ public class SearchActivity extends AppCompatActivity {
         stopSearchBtn.setVisibility(View.GONE);
 
         Intent intent = getIntent();
-        User authenticatedUser = (User) intent.getSerializableExtra(AUTHENTICATED_USER);
-        Filters filters = (Filters) intent.getSerializableExtra(FILTERS);
+        User authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
+        Filters filters = new Filters(intent.getStringExtra(FILTERS_SPECIALTY), intent.getStringExtra(FILTERS_TAG));
 
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         SearchController searchController = new SearchController(sharedPref, authenticatedUser, filters);

@@ -24,7 +24,6 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.meetster.R;
-import com.meetster.model.User;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -51,14 +50,14 @@ public class ChatActivityTest {
     public void startActivityWithTestUser() {
         authenticatedUserName = "testAuthUserName-" + UUID.randomUUID();
         chatUserName = "testChatUserName-" + UUID.randomUUID();
-        startChatBetweenUsers(new User(authenticatedUserName), new User(chatUserName));
+        startChatBetweenUsers(authenticatedUserName, chatUserName);
     }
 
-    private void startChatBetweenUsers(User authenticatedUser, User chatUser) {
+    private void startChatBetweenUsers(String authenticatedUserName, String chatUserName) {
         Intent startActivityIntent =
                 new Intent(ApplicationProvider.getApplicationContext(), ChatActivity.class)
-                        .putExtra(AUTHENTICATED_USER, authenticatedUser)
-                        .putExtra(CHAT_USER, chatUser);
+                        .putExtra(AUTHENTICATED_USER, authenticatedUserName)
+                        .putExtra(CHAT_USER, chatUserName);
         activityRule.launchActivity(startActivityIntent);
     }
 
@@ -107,7 +106,7 @@ public class ChatActivityTest {
         String testMessage = "testMessage " + UUID.randomUUID();
         sendTestMessage(testMessage);
         activityRule.finishActivity();
-        startChatBetweenUsers(new User(chatUserName), new User(authenticatedUserName));
+        startChatBetweenUsers(chatUserName, authenticatedUserName);
 
         onView(withId(R.id.chatUserNameText)).check(matches(withText(authenticatedUserName)));
         verifyMessageAdded(0, withText(testMessage), withId(R.id.messageTimestamp));

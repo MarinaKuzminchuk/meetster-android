@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -42,11 +41,12 @@ public class ChatActivity extends AppCompatActivity {
         // (inside recycler view when we click on the found user)
         // and authenticated user name
         Intent intent = getIntent();
-        User chatUser = (User) intent.getSerializableExtra(CHAT_USER);
-        User authenticatedUser = (User) intent.getSerializableExtra(AUTHENTICATED_USER);
+        User chatUser = new User(intent.getStringExtra(CHAT_USER));
+        User authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
         userNameText.setText(chatUser.name);
 
-        ChatRecyclerViewAdapter chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(this, chatUser);
+        ChatRecyclerViewAdapter chatRecyclerViewAdapter =
+                new ChatRecyclerViewAdapter(this, chatUser);
         configureChatRecyclerView(chatRecyclerViewAdapter);
 
         ChatMessageListener chatMessageListener = new ChatMessageListener(chatRecyclerViewAdapter);

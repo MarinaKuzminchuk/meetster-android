@@ -61,8 +61,8 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, ChatActivity.class);
-                intent.putExtra(AUTHENTICATED_USER, authenticatedUser);
-                intent.putExtra(CHAT_USER, new User(viewHolder.foundUserName.getText().toString()));
+                intent.putExtra(AUTHENTICATED_USER, authenticatedUser.name);
+                intent.putExtra(CHAT_USER, viewHolder.foundUserName.getText().toString());
                 activity.startActivity(intent);
             }
         });

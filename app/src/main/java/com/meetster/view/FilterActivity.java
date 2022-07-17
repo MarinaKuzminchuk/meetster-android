@@ -1,7 +1,8 @@
 package com.meetster.view;
 
 import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.view.IntentExtraKeys.FILTERS;
+import static com.meetster.view.IntentExtraKeys.FILTERS_SPECIALTY;
+import static com.meetster.view.IntentExtraKeys.FILTERS_TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +34,7 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_filter);
 
         Intent intent = getIntent();
-        authenticatedUser = (User) intent.getSerializableExtra(AUTHENTICATED_USER);
+        authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
 
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         filterController = new FilterController(sharedPref);
@@ -58,8 +59,9 @@ public class FilterActivity extends AppCompatActivity {
                 } else {
                     filterController.saveFilters(filters);
                     Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
-                    intent.putExtra(AUTHENTICATED_USER, authenticatedUser);
-                    intent.putExtra(FILTERS, filters);
+                    intent.putExtra(AUTHENTICATED_USER, authenticatedUser.name);
+                    intent.putExtra(FILTERS_SPECIALTY, filters.specialty);
+                    intent.putExtra(FILTERS_TAG, filters.tag);
                     startActivity(intent);
                 }
             }

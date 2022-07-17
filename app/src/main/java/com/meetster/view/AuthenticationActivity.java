@@ -45,7 +45,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                     User user = new User(userName);
                     authenticationController.saveUser(user);
                     Intent intent = new Intent(AuthenticationActivity.this, FilterActivity.class);
-                    intent.putExtra(AUTHENTICATED_USER, user);
+                    intent.putExtra(AUTHENTICATED_USER, user.name);
                     startActivity(intent);
                 }
             }
