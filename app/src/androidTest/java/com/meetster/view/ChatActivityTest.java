@@ -5,7 +5,6 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -40,6 +39,9 @@ import java.util.UUID;
 @LargeTest
 public class ChatActivityTest {
 
+    private String authenticatedUserName;
+    private String chatUserName;
+
     @Rule
     public ActivityTestRule<ChatActivity> activityRule =
             new ActivityTestRule<>(ChatActivity.class, false, false);
@@ -47,12 +49,16 @@ public class ChatActivityTest {
     // https://www.testrisk.com/2019/05/how-to-set-shared-preferences-in.html
     @Before
     public void startActivityWithTestUser() {
-        String authenticatedUserName = "testAuthUserName-" + UUID.randomUUID();
-        String chatUserName = "testChatUserName-" + UUID.randomUUID();
+        authenticatedUserName = "testAuthUserName-" + UUID.randomUUID();
+        chatUserName = "testChatUserName-" + UUID.randomUUID();
+        startChatBetweenUsers(new User(authenticatedUserName), new User(chatUserName));
+    }
+
+    private void startChatBetweenUsers(User authenticatedUser, User chatUser) {
         Intent startActivityIntent =
                 new Intent(ApplicationProvider.getApplicationContext(), ChatActivity.class)
-                        .putExtra(AUTHENTICATED_USER, new User(authenticatedUserName))
-                        .putExtra(CHAT_USER, new User(chatUserName));
+                        .putExtra(AUTHENTICATED_USER, authenticatedUser)
+                        .putExtra(CHAT_USER, chatUser);
         activityRule.launchActivity(startActivityIntent);
     }
 
@@ -61,6 +67,7 @@ public class ChatActivityTest {
         String testMessage = "testMessage " + UUID.randomUUID();
         sendTestMessage(testMessage);
 
+        onView(withId(R.id.chatUserNameText)).check(matches(withText(chatUserName)));
         onView(withId(R.id.messageEditText)).check(matches(withText("")));
         onView(withId(R.id.chatRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText(testMessage)))));
@@ -73,6 +80,7 @@ public class ChatActivityTest {
         sendTestMessage(testMessage1);
         sendTestMessage(testMessage2);
 
+        onView(withId(R.id.chatUserNameText)).check(matches(withText(chatUserName)));
         onView(withId(R.id.messageEditText)).check(matches(withText("")));
         onView(withId(R.id.chatRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText(testMessage1)))));
@@ -85,9 +93,21 @@ public class ChatActivityTest {
         String testMessage = "";
         sendTestMessage(testMessage);
 
-        onView(withId(R.id.chatRecyclerView)).check(matches(hasChildCount(0)));
+        onView(withId(R.id.chatUserNameText)).check(matches(withText(chatUserName)));
         onView(withId(R.id.chatRecyclerView))
                 .check(matches(not(atPosition(0, hasDescendant(withText(testMessage))))));
+    }
+
+    @Test
+    public void testSentMessageIsReceived() {
+        String testMessage = "testMessage " + UUID.randomUUID();
+        sendTestMessage(testMessage);
+        activityRule.finishActivity();
+        startChatBetweenUsers(new User(chatUserName), new User(authenticatedUserName));
+
+        onView(withId(R.id.chatUserNameText)).check(matches(withText(authenticatedUserName)));
+        onView(withId(R.id.chatRecyclerView))
+                .check(matches(atPosition(0, hasDescendant(withText(testMessage)))));
     }
 
     private void sendTestMessage(String testMessage) {
