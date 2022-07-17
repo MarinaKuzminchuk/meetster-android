@@ -26,8 +26,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.meetster.R;
-import com.meetster.controller.AuthenticationController;
-import com.meetster.controller.FilterController;
 import com.meetster.controller.SearchController;
 import com.meetster.model.Filters;
 import com.meetster.model.FoundUser;
@@ -88,12 +86,8 @@ public class SearchActivity extends AppCompatActivity {
         User authenticatedUser = (User) intent.getSerializableExtra(AUTHENTICATED_USER);
         Filters filters = (Filters) intent.getSerializableExtra(FILTERS);
 
-        // set image depending on status
-        if (btAdapter.isEnabled()) {
-            btImage.setImageResource(R.drawable.ic_action_on);
-        } else {
-            btImage.setImageResource(R.drawable.ic_action_off);
-        }
+        // set image
+        btImage.setImageResource(R.drawable.ic_action_off);
 
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         searchController = new SearchController(sharedPref);

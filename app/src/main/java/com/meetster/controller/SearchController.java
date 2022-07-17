@@ -1,5 +1,7 @@
 package com.meetster.controller;
 
+import static com.meetster.controller.PreferencesKeys.FOUND_USERS;
+
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -12,7 +14,6 @@ import java.util.List;
 
 public class SearchController {
 
-    public static final String FOUND_USERS = "foundUsers";
     private final SharedPreferences sharedPref;
     private final Gson gson;
 

@@ -1,13 +1,14 @@
 package com.meetster.controller;
 
+import static com.meetster.controller.PreferencesKeys.FILTERS_SPECIALTY;
+import static com.meetster.controller.PreferencesKeys.FILTERS_TAG;
+
 import android.content.SharedPreferences;
 
 import com.meetster.model.Filters;
 
 public class FilterController {
 
-    static final String SAVED_SPECIALITY = "saved_specialty";
-    static final String SAVED_TAG = "saved_tag";
     private final SharedPreferences sharedPref;
 
     public FilterController(SharedPreferences sharedPref) {
@@ -15,15 +16,15 @@ public class FilterController {
     }
 
     public Filters getFilters() {
-        String specialty = sharedPref.getString(SAVED_SPECIALITY, "");
-        String tag = sharedPref.getString(SAVED_TAG, "");
+        String specialty = sharedPref.getString(FILTERS_SPECIALTY, "");
+        String tag = sharedPref.getString(FILTERS_TAG, "");
         return new Filters(specialty, tag);
     }
 
     public void saveFilters(Filters filters) {
         SharedPreferences.Editor ed = sharedPref.edit();
-        ed.putString(SAVED_SPECIALITY, filters.specialty);
-        ed.putString(SAVED_TAG, filters.tag);
+        ed.putString(FILTERS_SPECIALTY, filters.specialty);
+        ed.putString(FILTERS_TAG, filters.tag);
         ed.commit();
     }
 }
