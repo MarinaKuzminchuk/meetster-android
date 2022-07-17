@@ -71,6 +71,8 @@ public class ChatActivityTest {
         onView(withId(R.id.messageEditText)).check(matches(withText("")));
         onView(withId(R.id.chatRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText(testMessage)))));
+        onView(withId(R.id.chatRecyclerView))
+                .check(matches(atPosition(0, hasDescendant(withId(R.id.myMessageTimestamp)))));
     }
 
     @Test
@@ -85,7 +87,11 @@ public class ChatActivityTest {
         onView(withId(R.id.chatRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText(testMessage1)))));
         onView(withId(R.id.chatRecyclerView))
+                .check(matches(atPosition(0, hasDescendant(withId(R.id.myMessageTimestamp)))));
+        onView(withId(R.id.chatRecyclerView))
                 .check(matches(atPosition(1, hasDescendant(withText(testMessage2)))));
+        onView(withId(R.id.chatRecyclerView))
+                .check(matches(atPosition(1, hasDescendant(withId(R.id.myMessageTimestamp)))));
     }
 
     @Test
@@ -108,6 +114,8 @@ public class ChatActivityTest {
         onView(withId(R.id.chatUserNameText)).check(matches(withText(authenticatedUserName)));
         onView(withId(R.id.chatRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText(testMessage)))));
+        onView(withId(R.id.chatRecyclerView))
+                .check(matches(atPosition(0, hasDescendant(withId(R.id.incomingMessageTimestamp)))));
     }
 
     private void sendTestMessage(String testMessage) {
