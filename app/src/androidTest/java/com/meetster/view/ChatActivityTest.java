@@ -10,6 +10,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.view.IntentExtraKeys.CHAT_USER;
 import static org.hamcrest.CoreMatchers.not;
 
 import android.content.Intent;
@@ -23,6 +25,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.meetster.R;
+import com.meetster.model.User;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -44,10 +47,12 @@ public class ChatActivityTest {
     // https://www.testrisk.com/2019/05/how-to-set-shared-preferences-in.html
     @Before
     public void startActivityWithTestUser() {
-        String userName = "testChatUserName-" + UUID.randomUUID();
+        String authenticatedUserName = "testAuthUserName-" + UUID.randomUUID();
+        String chatUserName = "testChatUserName-" + UUID.randomUUID();
         Intent startActivityIntent =
                 new Intent(ApplicationProvider.getApplicationContext(), ChatActivity.class)
-                        .putExtra("chat-user", userName);
+                        .putExtra(AUTHENTICATED_USER, new User(authenticatedUserName))
+                        .putExtra(CHAT_USER, new User(chatUserName));
         activityRule.launchActivity(startActivityIntent);
     }
 

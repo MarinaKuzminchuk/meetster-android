@@ -1,5 +1,8 @@
 package com.meetster.view;
 
+import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.view.IntentExtraKeys.CHAT_USER;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetster.R;
 import com.meetster.model.FoundUser;
+import com.meetster.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +24,13 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
     private static final int NEWLY_FOUND_VIEW_TYPE = 0;
     private static final int PREVIOUSLY_FOUND_VIEW_TYPE = 1;
     private Activity activity;
+    private User authenticatedUser;
     private List<FoundUser> newlyFoundUsers;
     private List<FoundUser> previouslyFoundUsers;
 
-    public FoundUsersRecyclerViewAdapter(Activity activity, List<FoundUser> previouslyFoundUsers) {
+    public FoundUsersRecyclerViewAdapter(Activity activity, User authenticatedUser, List<FoundUser> previouslyFoundUsers) {
         this.activity = activity;
+        this.authenticatedUser = authenticatedUser;
         this.newlyFoundUsers = new ArrayList<>();
         this.previouslyFoundUsers = previouslyFoundUsers;
     }
@@ -55,7 +61,8 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, ChatActivity.class);
-                intent.putExtra("chat-user", viewHolder.foundUserName.getText());
+                intent.putExtra(AUTHENTICATED_USER, authenticatedUser);
+                intent.putExtra(CHAT_USER, new User(viewHolder.foundUserName.getText().toString()));
                 activity.startActivity(intent);
             }
         });

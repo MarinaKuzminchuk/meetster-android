@@ -1,5 +1,7 @@
 package com.meetster.view;
 
+import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,8 +44,8 @@ public class AuthenticationActivity extends AppCompatActivity {
                 } else {
                     User user = new User(userName);
                     authenticationController.saveUser(user);
-//                Toast.makeText(AuthenticationActivity.this, "Your name - " + userName + " - is saved", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AuthenticationActivity.this, FilterActivity.class);
+                    intent.putExtra(AUTHENTICATED_USER, user);
                     startActivity(intent);
                 }
             }

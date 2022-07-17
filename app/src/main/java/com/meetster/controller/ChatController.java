@@ -1,10 +1,9 @@
 package com.meetster.controller;
 
-import android.content.SharedPreferences;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.meetster.model.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,19 +13,18 @@ import java.util.UUID;
 
 public class ChatController {
 
-    static final String SAVED_USER_NAME = "saved_user_name";
     public static final String DATABASE_URL = "https://meetster-chat-default-rtdb.europe-west1.firebasedatabase.app/";
-    private final String myName;
+    private final User authenticatedUser;
     private final DatabaseReference chatReference;
 
-    public ChatController(String userName, SharedPreferences sharedPref, ChatMessageListener listener) {
-        this(FirebaseDatabase.getInstance(DATABASE_URL), userName, sharedPref, listener);
+    public ChatController(User authenticatedUser, User chatUser, ChatMessageListener listener) {
+        this(FirebaseDatabase.getInstance(DATABASE_URL), authenticatedUser, chatUser, listener);
     }
 
     // This constructor is used only for testing to pass FirebaseDatabase mock
-    ChatController(FirebaseDatabase database, String userName, SharedPreferences sharedPref, ChatMessageListener listener) {
-        myName = sharedPref.getString(SAVED_USER_NAME, "");
-        String chatName = getChatName(myName, userName);
+    ChatController(FirebaseDatabase database, User authenticatedUser, User chatUser, ChatMessageListener listener) {
+        String chatName = getChatName(authenticatedUser.name, chatUser.name);
+        this.authenticatedUser = authenticatedUser;
         chatReference = database.getReference("chats").child(chatName);
         // Subscribe to messages created in a chat to display them in recycler view
         chatReference.orderByChild("timestamp").addChildEventListener(listener);
@@ -37,7 +35,7 @@ public class ChatController {
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
         map.put("timestamp", ServerValue.TIMESTAMP);
-        map.put("sentBy", myName);
+        map.put("sentBy", authenticatedUser.name);
         chatReference.child(UUID.randomUUID().toString()).updateChildren(map);
     }
 

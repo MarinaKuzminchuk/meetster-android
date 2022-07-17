@@ -1,5 +1,8 @@
 package com.meetster.view;
 
+import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.view.IntentExtraKeys.FILTERS;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,11 +66,11 @@ public class SearchActivity extends AppCompatActivity {
 
     // Create a BroadcastReceiver for ACTION_FOUND.
     private BroadcastReceiver receiver;
-    private AuthenticationController authenticationController;
-    private FilterController filterController;
     private SearchController searchController;
 
     private FoundUsersRecyclerViewAdapter foundUsersAdapter;
+    private User authenticatedUser;
+    private Filters filters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,8 @@ public class SearchActivity extends AppCompatActivity {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
+        User authenticatedUser = (User) intent.getSerializableExtra(AUTHENTICATED_USER);
+        Filters filters = (Filters) intent.getSerializableExtra(FILTERS);
 
         // set image depending on status
         if (btAdapter.isEnabled()) {
@@ -91,8 +96,6 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
-        authenticationController = new AuthenticationController(sharedPref);
-        filterController = new FilterController(sharedPref);
         searchController = new SearchController(sharedPref);
 
         //create and set layout manager for each RecyclerView
@@ -102,7 +105,7 @@ public class SearchActivity extends AppCompatActivity {
         List<FoundUser> previouslyFoundUsers = searchController.getFoundUsers();
 
         //Initializing and set adapter for each RecyclerView
-        foundUsersAdapter = new FoundUsersRecyclerViewAdapter(this, previouslyFoundUsers);
+        foundUsersAdapter = new FoundUsersRecyclerViewAdapter(this, authenticatedUser, previouslyFoundUsers);
         foundUsersRV.setAdapter(foundUsersAdapter);
 
         receiver = new BroadcastReceiver() {
@@ -127,9 +130,7 @@ public class SearchActivity extends AppCompatActivity {
                         // Make our device discoverable when bluetooth was turned on
                         showToast("Making your device discoverable");
                         if (btAdapter.getState() == BluetoothAdapter.STATE_ON) {
-                            User user = authenticationController.getUser();
-                            Filters filters = filterController.getFilters();
-                            String btName = "meetster/" + user.name + "/" + filters.specialty + "/" + filters.tag;
+                            String btName = "meetster/" + authenticatedUser.name + "/" + filters.specialty + "/" + filters.tag;
                             btAdapter.setName(btName);
                         }
                         if (ActivityCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
@@ -191,8 +192,7 @@ public class SearchActivity extends AppCompatActivity {
             String specialty = parts[2];
             String tag = parts[3];
             FoundUser foundUser = new FoundUser(new User(name), new Filters(specialty, tag));
-            Filters myFilters = filterController.getFilters();
-            if (myFilters.specialty.equals(specialty) || myFilters.tag.equals(tag)){
+            if (filters.specialty.equals(specialty) || filters.tag.equals(tag)){
                 foundUsersAdapter.addFoundUser(foundUser);
                 List<FoundUser> updatedFoundUsers = foundUsersAdapter.getFoundUsers();
                 // save all found users after new user was found

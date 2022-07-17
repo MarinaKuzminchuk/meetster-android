@@ -1,9 +1,13 @@
 package com.meetster.view;
 
+import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.view.IntentExtraKeys.CHAT_USER;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import com.example.meetster.R;
 import com.meetster.controller.ChatController;
 import com.meetster.controller.ChatMessageListener;
+import com.meetster.model.User;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -35,15 +40,18 @@ public class ChatActivity extends AppCompatActivity {
 
         // Get chat user name passed from the search activity
         // (inside recycler view when we click on the found user)
-        String userName = getIntent().getStringExtra("chat-user");
-        userNameText.setText(userName);
+        // and authenticated user name
+        Intent intent = getIntent();
+        User chatUser = (User) intent.getSerializableExtra(CHAT_USER);
+        User authenticatedUser = (User) intent.getSerializableExtra(AUTHENTICATED_USER);
+        userNameText.setText(chatUser.name);
 
-        ChatRecyclerViewAdapter chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(this, userName);
+        ChatRecyclerViewAdapter chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(this, chatUser);
         SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         configureChatRecyclerView(chatRecyclerViewAdapter);
 
         ChatMessageListener chatMessageListener = new ChatMessageListener(chatRecyclerViewAdapter);
-        chatController = new ChatController(userName, sharedPref, chatMessageListener);
+        chatController = new ChatController(authenticatedUser, chatUser, chatMessageListener);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override

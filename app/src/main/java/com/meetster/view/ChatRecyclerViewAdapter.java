@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetster.R;
 import com.meetster.model.ChatMessage;
+import com.meetster.model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,21 +21,21 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
     private static final int MY_MESSAGE = 1;
     private static final int INCOMING_MESSAGE = 2;
     private final Activity activity;
-    private final String userName;
+    private final User chatUser;
     private final List<ChatMessage> messages;
     private static final SimpleDateFormat timestampFormatter =
             new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    public ChatRecyclerViewAdapter(Activity activity, String userName) {
+    public ChatRecyclerViewAdapter(Activity activity, User chatUser) {
         this.activity = activity;
-        this.userName = userName;
+        this.chatUser = chatUser;
         this.messages = new ArrayList<>();
     }
 
     @Override
     public int getItemViewType(int position) {
         ChatMessage chatMessage = messages.get(position);
-        if (userName.equals(chatMessage.sentBy)) {
+        if (chatUser.name.equals(chatMessage.sentBy)) {
             return INCOMING_MESSAGE;
         } else {
             return MY_MESSAGE;
@@ -78,8 +79,8 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
         public ViewHolder(View view, int messageTextId, int messageTimestampId) {
             super(view);
-            text = (TextView) view.findViewById(messageTextId);
-            timestamp = (TextView) view.findViewById(messageTimestampId);
+            text = view.findViewById(messageTextId);
+            timestamp = view.findViewById(messageTimestampId);
         }
     }
 }
