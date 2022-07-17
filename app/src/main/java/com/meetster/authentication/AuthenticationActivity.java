@@ -1,4 +1,4 @@
-package com.meetster.view;
+package com.meetster.authentication;
 
 import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
 
@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.meetster.R;
-import com.meetster.controller.AuthenticationController;
 import com.meetster.model.User;
+import com.meetster.view.FilterActivity;
 
 public class AuthenticationActivity extends AppCompatActivity {
     private EditText userNameText;

@@ -4,7 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.meetster.view.AuthenticationActivity">
+    tools:context="com.meetster.authentication.AuthenticationActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/Widget.AppCompat.TextView"
+        android:layout_width="371dp"
+        android:layout_height="218dp"
+        android:layout_marginTop="64dp"
+        android:text="Welcome to Meetster\nwhat's your name?"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/userNameText"
@@ -13,7 +27,7 @@
         android:layout_marginTop="304dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Your name"
+        android:hint="Your name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.326"
         app:layout_constraintStart_toStartOf="parent"

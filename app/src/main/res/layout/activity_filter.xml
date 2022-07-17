@@ -53,7 +53,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="IMI"
+        android:hint="e.g. IMI"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -79,7 +79,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Tag"
+        android:hint="Keyphrase to match you with others"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagLabel" />
@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:text="At leas one filter must be specified"
+        android:text=""
         android:textColor="#DA0909"
         app:layout_constraintBottom_toTopOf="@+id/saveFiltersButton"
         app:layout_constraintEnd_toEndOf="parent"

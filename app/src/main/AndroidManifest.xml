@@ -36,13 +36,13 @@
         </activity>
         <activity
             android:name="com.meetster.view.FilterActivity"
-            android:parentActivityName="com.meetster.view.AuthenticationActivity">
+            android:parentActivityName="com.meetster.authentication.AuthenticationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.meetster.view.AuthenticationActivity" />
+                android:value="com.meetster.authentication.AuthenticationActivity" />
         </activity>
         <activity
-            android:name="com.meetster.view.AuthenticationActivity"
+            android:name="com.meetster.authentication.AuthenticationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

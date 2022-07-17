@@ -1,4 +1,4 @@
-package com.meetster.controller;
+package com.meetster.authentication;
 
 import static com.meetster.controller.PreferencesKeys.AUTHENTICATED_USER_NAME;
 
