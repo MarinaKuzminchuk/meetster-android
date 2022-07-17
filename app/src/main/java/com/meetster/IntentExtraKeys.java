@@ -1,4 +1,4 @@
-package com.meetster.view;
+package com.meetster;
 
 // https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md#2213-string-constants-naming-and-values
 public class IntentExtraKeys {

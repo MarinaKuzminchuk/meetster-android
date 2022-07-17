@@ -1,8 +1,8 @@
-package com.meetster.view;
+package com.meetster.search;
 
-import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.view.IntentExtraKeys.FILTERS_SPECIALTY;
-import static com.meetster.view.IntentExtraKeys.FILTERS_TAG;
+import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.FILTERS_SPECIALTY;
+import static com.meetster.IntentExtraKeys.FILTERS_TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,9 +21,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.meetster.R;
-import com.meetster.bluetooth.BluetoothBroadcastReceiver;
-import com.meetster.bluetooth.BluetoothClient;
-import com.meetster.controller.SearchController;
+import com.meetster.search.bluetooth.BluetoothBroadcastReceiver;
+import com.meetster.search.bluetooth.BluetoothClient;
 import com.meetster.model.Filters;
 import com.meetster.model.User;
 

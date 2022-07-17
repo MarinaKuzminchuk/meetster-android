@@ -1,12 +1,13 @@
-package com.meetster.controller;
+package com.meetster.chat;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.google.firebase.database.DataSnapshot;
+import com.meetster.chat.ChatMessageListener;
 import com.meetster.model.ChatMessage;
-import com.meetster.view.ChatRecyclerViewAdapter;
+import com.meetster.chat.ChatRecyclerViewAdapter;
 
 import org.junit.Test;
 

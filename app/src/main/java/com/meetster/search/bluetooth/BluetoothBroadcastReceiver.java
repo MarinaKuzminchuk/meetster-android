@@ -1,4 +1,4 @@
-package com.meetster.bluetooth;
+package com.meetster.search.bluetooth;
 
 import android.Manifest;
 import android.app.Activity;
@@ -11,8 +11,8 @@ import android.content.pm.PackageManager;
 
 import androidx.core.app.ActivityCompat;
 
-import com.meetster.controller.SearchController;
-import com.meetster.view.FoundUsersRecyclerViewAdapter;
+import com.meetster.search.SearchController;
+import com.meetster.search.FoundUsersRecyclerViewAdapter;
 
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     private static final int REQUEST_DISCOVER_BT = 1;

@@ -1,8 +1,8 @@
-package com.meetster.view;
+package com.meetster.filter;
 
-import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.view.IntentExtraKeys.FILTERS_SPECIALTY;
-import static com.meetster.view.IntentExtraKeys.FILTERS_TAG;
+import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.FILTERS_SPECIALTY;
+import static com.meetster.IntentExtraKeys.FILTERS_TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,9 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.meetster.R;
-import com.meetster.controller.FilterController;
 import com.meetster.model.Filters;
 import com.meetster.model.User;
+import com.meetster.search.SearchActivity;
 
 public class FilterActivity extends AppCompatActivity {
 

@@ -1,7 +1,7 @@
-package com.meetster.controller;
+package com.meetster.filter;
 
-import static com.meetster.controller.PreferencesKeys.FILTERS_SPECIALTY;
-import static com.meetster.controller.PreferencesKeys.FILTERS_TAG;
+import static com.meetster.PreferencesKeys.FILTERS_SPECIALTY;
+import static com.meetster.PreferencesKeys.FILTERS_TAG;
 
 import android.content.SharedPreferences;
 

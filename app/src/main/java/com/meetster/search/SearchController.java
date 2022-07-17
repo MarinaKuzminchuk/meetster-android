@@ -1,6 +1,6 @@
-package com.meetster.controller;
+package com.meetster.search;
 
-import static com.meetster.controller.PreferencesKeys.FOUND_USERS;
+import static com.meetster.PreferencesKeys.FOUND_USERS;
 
 import android.content.SharedPreferences;
 

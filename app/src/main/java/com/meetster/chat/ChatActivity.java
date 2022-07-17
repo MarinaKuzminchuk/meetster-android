@@ -1,7 +1,7 @@
-package com.meetster.view;
+package com.meetster.chat;
 
-import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.view.IntentExtraKeys.CHAT_USER;
+import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.CHAT_USER;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.meetster.R;
-import com.meetster.controller.ChatController;
-import com.meetster.controller.ChatMessageListener;
 import com.meetster.model.User;
 
 public class ChatActivity extends AppCompatActivity {

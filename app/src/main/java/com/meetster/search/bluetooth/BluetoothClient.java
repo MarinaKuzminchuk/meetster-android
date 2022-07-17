@@ -1,4 +1,4 @@
-package com.meetster.bluetooth;
+package com.meetster.search.bluetooth;
 
 import android.Manifest;
 import android.app.Activity;

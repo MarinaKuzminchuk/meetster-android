@@ -1,6 +1,6 @@
 package com.meetster.authentication;
 
-import static com.meetster.controller.PreferencesKeys.AUTHENTICATED_USER_NAME;
+import static com.meetster.PreferencesKeys.AUTHENTICATED_USER_NAME;
 
 import android.content.SharedPreferences;
 

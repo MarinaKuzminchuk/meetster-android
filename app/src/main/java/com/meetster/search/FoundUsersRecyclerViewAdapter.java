@@ -1,7 +1,7 @@
-package com.meetster.view;
+package com.meetster.search;
 
-import static com.meetster.view.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.view.IntentExtraKeys.CHAT_USER;
+import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.CHAT_USER;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetster.R;
+import com.meetster.chat.ChatActivity;
 import com.meetster.model.FoundUser;
 import com.meetster.model.User;
 

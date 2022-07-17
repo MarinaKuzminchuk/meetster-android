@@ -1,4 +1,4 @@
-package com.meetster.view;
+package com.meetster.chat;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

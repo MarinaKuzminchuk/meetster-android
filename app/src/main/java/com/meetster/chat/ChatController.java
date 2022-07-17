@@ -1,4 +1,4 @@
-package com.meetster.controller;
+package com.meetster.chat;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

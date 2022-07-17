@@ -21,21 +21,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meetster">
         <activity
-            android:name="com.meetster.view.ChatActivity"
-            android:parentActivityName="com.meetster.view.SearchActivity">
+            android:name="com.meetster.chat.ChatActivity"
+            android:parentActivityName="com.meetster.search.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.meetster.view.SearchActivity" />
+                android:value="com.meetster.search.SearchActivity" />
         </activity>
         <activity
-            android:name="com.meetster.view.SearchActivity"
-            android:parentActivityName="com.meetster.view.FilterActivity">
+            android:name="com.meetster.search.SearchActivity"
+            android:parentActivityName="com.meetster.filter.FilterActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.meetster.view.FilterActivity" />
+                android:value="com.meetster.filter.FilterActivity" />
         </activity>
         <activity
-            android:name="com.meetster.view.FilterActivity"
+            android:name="com.meetster.filter.FilterActivity"
             android:parentActivityName="com.meetster.authentication.AuthenticationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

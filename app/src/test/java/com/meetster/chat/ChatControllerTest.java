@@ -1,4 +1,4 @@
-package com.meetster.controller;
+package com.meetster.chat;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.meetster.chat.ChatController;
+import com.meetster.chat.ChatMessageListener;
 import com.meetster.model.User;
 
 import org.junit.Test;

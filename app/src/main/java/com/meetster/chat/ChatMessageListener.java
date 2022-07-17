@@ -1,4 +1,4 @@
-package com.meetster.controller;
+package com.meetster.chat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -7,7 +7,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.meetster.model.ChatMessage;
-import com.meetster.view.ChatRecyclerViewAdapter;
 
 import java.util.Date;
 

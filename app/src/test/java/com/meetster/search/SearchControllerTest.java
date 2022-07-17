@@ -1,6 +1,6 @@
-package com.meetster.controller;
+package com.meetster.search;
 
-import static com.meetster.controller.PreferencesKeys.FOUND_USERS;
+import static com.meetster.PreferencesKeys.FOUND_USERS;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.meetster.model.Filters;
 import com.meetster.model.FoundUser;
 import com.meetster.model.User;
+import com.meetster.search.SearchController;
 
 import org.junit.Test;
 

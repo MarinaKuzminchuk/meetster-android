@@ -1,4 +1,5 @@
-package com.meetster.view;
+package com.meetster.authentication;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -22,6 +23,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
 import com.example.meetster.R;
+import com.meetster.authentication.AuthenticationActivity;
+import com.meetster.filter.FilterActivity;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,11 +34,11 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
+public class AuthenticationActivityTest {
 
-public class FilterActivityTest {
     @Rule
-    public ActivityScenarioRule<FilterActivity> activityRule =
-            new ActivityScenarioRule<>(FilterActivity.class);
+    public ActivityScenarioRule<AuthenticationActivity> activityRule =
+            new ActivityScenarioRule<>(AuthenticationActivity.class);
 
     @Before
     public void setup() {
@@ -59,53 +62,29 @@ public class FilterActivityTest {
     }
 
     @Test
-    public void testFiltersSaved() {
-        String speciality = "testSpecialty";
-        String tag = "testTag";
-        onView(withId(R.id.specialtyText))
+    public void testUserNameSaved() {
+        String userName = "testUserName";
+        onView(withId(R.id.userNameText))
                 .perform(clearText())
-                .perform(typeText(speciality))
+                .perform(typeText(userName))
                 .perform(closeSoftKeyboard());
-        onView(withId(R.id.tagText))
-                .perform(clearText())
-                .perform(typeText(tag))
-                .perform(closeSoftKeyboard());
+        onView(withId(R.id.confirmButton)).perform(click());
 
-        onView(withId(R.id.saveFiltersButton)).perform(click());
-
-        intended(hasComponent(SearchActivity.class.getName()));
+        intended(hasComponent(FilterActivity.class.getName()));
 
         Espresso.pressBackUnconditionally();
 
-        onView(withId(R.id.specialtyText))
-                .check(matches(withText(speciality)));
-        onView(withId(R.id.tagText))
-                .check(matches(withText(tag)));
+        onView(withId(R.id.userNameText))
+                .check(matches(withText(userName)));
     }
-
     @Test
-    public void testOneFilterIsEmpty() {
-        String speciality = "testSpecialty";
-        onView(withId(R.id.specialtyText))
-                .perform(clearText())
-                .perform(typeText(speciality))
-                .perform(closeSoftKeyboard());
-        onView(withId(R.id.tagText)).perform(clearText());
-        onView(withId(R.id.saveFiltersButton)).perform(click());
+    public void testUserNameIsNotEmpty() {
+        String userName = "";
+        onView(withId(R.id.userNameText)).perform(clearText());
+        onView(withId(R.id.confirmButton)).perform(click());
+        onView(withId(R.id.validationError)).check(matches((withText("Your name should not be empty"))));
 
-        onView(withId(R.id.filtersValidationError)).check(matches((withText("Both specialty and tag should be specified"))));
-    }
-
-    @Test
-    public void testTwoFiltersAreEmpty() {
-        onView(withId(R.id.specialtyText))
-                .perform(clearText())
-                .perform(closeSoftKeyboard());
-        onView(withId(R.id.tagText))
-                .perform(clearText())
-                .perform(closeSoftKeyboard());
-        onView(withId(R.id.saveFiltersButton)).perform(click());
-
-        onView(withId(R.id.filtersValidationError)).check(matches((withText("Both specialty and tag should be specified"))));
+        onView(withId(R.id.userNameText))
+                .check(matches(withText(userName)));
     }
 }

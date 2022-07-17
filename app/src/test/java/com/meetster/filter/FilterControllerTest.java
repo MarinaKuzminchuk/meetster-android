@@ -1,7 +1,7 @@
-package com.meetster.controller;
+package com.meetster.filter;
 
-import static com.meetster.controller.PreferencesKeys.FILTERS_SPECIALTY;
-import static com.meetster.controller.PreferencesKeys.FILTERS_TAG;
+import static com.meetster.PreferencesKeys.FILTERS_SPECIALTY;
+import static com.meetster.PreferencesKeys.FILTERS_TAG;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import android.content.SharedPreferences;
 
+import com.meetster.filter.FilterController;
 import com.meetster.model.Filters;
 
 import org.junit.Test;
