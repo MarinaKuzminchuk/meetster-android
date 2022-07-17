@@ -47,7 +47,6 @@ public class ChatActivity extends AppCompatActivity {
         userNameText.setText(chatUser.name);
 
         ChatRecyclerViewAdapter chatRecyclerViewAdapter = new ChatRecyclerViewAdapter(this, chatUser);
-        SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         configureChatRecyclerView(chatRecyclerViewAdapter);
 
         ChatMessageListener chatMessageListener = new ChatMessageListener(chatRecyclerViewAdapter);

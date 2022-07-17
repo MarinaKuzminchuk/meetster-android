@@ -41,10 +41,13 @@ public class SearchController {
         }
         if (atLeastOneFilterMatches(foundUser)) {
             List<FoundUser> foundUsers = getFoundUsers();
-            for (int i = previouslyFoundUsersIndex; i < foundUsers.size(); i++) {
+            for (int i = 0; i < foundUsers.size(); i++) {
                 FoundUser previouslyFoundUser = foundUsers.get(i);
                 if (previouslyFoundUser.user.name.equals(foundUser.user.name)) {
                     foundUsers.remove(i);
+                    if (i < previouslyFoundUsersIndex) {
+                        previouslyFoundUsersIndex--;
+                    }
                     break;
                 }
             }

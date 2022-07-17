@@ -1,4 +1,4 @@
-package com.meetster.view;
+package com.meetster.bluetooth;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,21 +12,22 @@ import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 
 import com.meetster.controller.SearchController;
+import com.meetster.view.FoundUsersRecyclerViewAdapter;
 
 public class BluetoothBroadcastReceiver extends BroadcastReceiver {
     private static final int REQUEST_DISCOVER_BT = 1;
     private static final int DISCOVERABLE_DURATION_IN_SECONDS = 3600;
-    private Activity parentActivity;
-    private BluetoothAdapter btAdapter;
+    private Activity activity;
+    private BluetoothClient bluetoothClient;
     private FoundUsersRecyclerViewAdapter foundUsersAdapter;
     private SearchController searchController;
 
-    public BluetoothBroadcastReceiver(Activity parentActivity,
-                                      BluetoothAdapter btAdapter,
+    public BluetoothBroadcastReceiver(Activity activity,
+                                      BluetoothClient bluetoothClient,
                                       FoundUsersRecyclerViewAdapter foundUsersAdapter,
                                       SearchController searchController) {
-        this.parentActivity = parentActivity;
-        this.btAdapter = btAdapter;
+        this.activity = activity;
+        this.bluetoothClient = bluetoothClient;
         this.foundUsersAdapter = foundUsersAdapter;
         this.searchController = searchController;
     }
@@ -41,10 +42,10 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    // Found a device during discovery
     private void handleFoundDevice(Intent intent) {
-        // Discovery has found a device
         BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-        if (ActivityCompat.checkSelfPermission(parentActivity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         if (device.getName() == null) {
@@ -55,21 +56,22 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver {
                 searchController.getNewlyFoundUsers(), searchController.getPreviouslyFoundUsers());
     }
 
+    // State of Bluetooth has changed
     private void handleBtStateTransition() {
-        if (ActivityCompat.checkSelfPermission(parentActivity, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        if (btAdapter.isEnabled() && !btAdapter.isDiscovering()) {
+        if (bluetoothClient.isEnabled() && !bluetoothClient.isDiscovering()) {
             // Start discovering other devices
-            btAdapter.startDiscovery();
+            bluetoothClient.startDiscovery();
             // Make our device discoverable when bluetooth was turned on
-            if (btAdapter.getState() == BluetoothAdapter.STATE_ON) {
+            if (bluetoothClient.isOn()) {
                 String btName = searchController.getBluetoothName();
-                btAdapter.setName(btName);
+                bluetoothClient.setName(btName);
             }
             Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERABLE_DURATION_IN_SECONDS);
-            parentActivity.startActivityForResult(discoverableIntent, REQUEST_DISCOVER_BT);
+            if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            activity.startActivityForResult(discoverableIntent, REQUEST_DISCOVER_BT);
         }
     }
 }
