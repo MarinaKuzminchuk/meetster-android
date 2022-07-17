@@ -25,7 +25,7 @@ public class FilterActivity extends AppCompatActivity {
     private EditText tagText;
     private Button confirmBtn;
     private FilterController filterController;
-    private TextView validationErrorText2;
+    private TextView filtersValidationErrorText;
     private User authenticatedUser;
 
     @Override
@@ -42,8 +42,8 @@ public class FilterActivity extends AppCompatActivity {
         specialtyText = findViewById(R.id.specialtyText);
         tagText = findViewById(R.id.tagText);
         confirmBtn = findViewById(R.id.saveFiltersButton);
-        validationErrorText2 = findViewById(R.id.validationError2);
-        validationErrorText2.setText("");
+        filtersValidationErrorText = findViewById(R.id.filtersValidationError);
+        filtersValidationErrorText.setText("");
 
         // Save user-set filters after s/he clicks on the button
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +54,8 @@ public class FilterActivity extends AppCompatActivity {
                         tagText.getText().toString().trim()
                 );
                 // checks if at least one of the filters is specified to go to the next page
-                if (filters.specialty.isEmpty() && filters.tag.isEmpty()) {
-                    validationErrorText2.setText("At least one filter must be specified");
+                if (filters.specialty.isEmpty() || filters.tag.isEmpty()) {
+                    filtersValidationErrorText.setText("Both specialty and tag should be specified");
                 } else {
                     filterController.saveFilters(filters);
                     Intent intent = new Intent(FilterActivity.this, SearchActivity.class);

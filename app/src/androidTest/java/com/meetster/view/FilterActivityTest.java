@@ -84,11 +84,28 @@ public class FilterActivityTest {
     }
 
     @Test
-    public void testAtLeastOneFilterIsNotEmpty() {
-        onView(withId(R.id.specialtyText)).perform(clearText());
+    public void testOneFilterIsEmpty() {
+        String speciality = "testSpecialty";
+        onView(withId(R.id.specialtyText))
+                .perform(clearText())
+                .perform(typeText(speciality))
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.tagText)).perform(clearText());
         onView(withId(R.id.saveFiltersButton)).perform(click());
 
-        onView(withId(R.id.validationError2)).check(matches((withText("At least one filter must be specified"))));
+        onView(withId(R.id.filtersValidationError)).check(matches((withText("Both specialty and tag should be specified"))));
+    }
+
+    @Test
+    public void testTwoFiltersAreEmpty() {
+        onView(withId(R.id.specialtyText))
+                .perform(clearText())
+                .perform(closeSoftKeyboard());
+        onView(withId(R.id.tagText))
+                .perform(clearText())
+                .perform(closeSoftKeyboard());
+        onView(withId(R.id.saveFiltersButton)).perform(click());
+
+        onView(withId(R.id.filtersValidationError)).check(matches((withText("Both specialty and tag should be specified"))));
     }
 }

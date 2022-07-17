@@ -58,7 +58,7 @@ public class SearchController {
     }
 
     private FoundUser parseFoundUser(String btName) {
-        if (!btName.startsWith("meetster")) {
+        if (btName == null || !btName.startsWith("meetster")) {
             return null;
         }
         String[] parts = btName.split("/");
