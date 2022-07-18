@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/old_users_form">
 
         <TextView
