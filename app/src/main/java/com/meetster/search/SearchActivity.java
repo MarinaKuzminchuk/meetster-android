@@ -74,7 +74,7 @@ public class SearchActivity extends AppCompatActivity {
         foundUsersRV.setAdapter(foundUsersAdapter);
 
         receiver = new BluetoothBroadcastReceiver(
-                this, bluetoothClient, foundUsersAdapter, searchController);
+                bluetoothClient, foundUsersAdapter, searchController);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);

@@ -3,6 +3,7 @@ package com.meetster.search.bluetooth;
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -101,5 +102,12 @@ public class BluetoothClient {
             return;
         }
         activity.startActivityForResult(discoverableIntent, REQUEST_DISCOVER_BT);
+    }
+
+    public String getDeviceName(BluetoothDevice device) {
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            return null;
+        }
+        return device.getName();
     }
 }
