@@ -3,6 +3,9 @@ package com.meetster.search;
 import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
 import static com.meetster.IntentExtraKeys.FILTERS_SPECIALTY;
 import static com.meetster.IntentExtraKeys.FILTERS_TAG;
+import static com.meetster.PreferencesKeys.PREF_AUTHENTICATED_USER;
+import static com.meetster.PreferencesKeys.PREF_FILTERS_SPECIALTY;
+import static com.meetster.PreferencesKeys.PREF_FILTERS_TAG;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -48,12 +51,21 @@ public class SearchActivity extends AppCompatActivity {
         bluetoothClient.disableBluetooth();
         btImage.setImageResource(R.drawable.ic_action_off);
         stopSearchBtn.setVisibility(View.GONE);
+        SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
 
         Intent intent = getIntent();
-        User authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
-        Filters filters = new Filters(intent.getStringExtra(FILTERS_SPECIALTY), intent.getStringExtra(FILTERS_TAG));
+        User authenticatedUser;
+        Filters filters;
+        if (intent.getExtras() == null) {
+            authenticatedUser = new User(sharedPref.getString(PREF_AUTHENTICATED_USER, ""));
+            filters = new Filters(
+                    sharedPref.getString(PREF_FILTERS_SPECIALTY, ""),
+                    sharedPref.getString(PREF_FILTERS_TAG, ""));
+        } else {
+            authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
+            filters = new Filters(intent.getStringExtra(FILTERS_SPECIALTY), intent.getStringExtra(FILTERS_TAG));
+        }
 
-        SharedPreferences sharedPref = getSharedPreferences("meetster", MODE_PRIVATE);
         SearchController searchController = new SearchController(sharedPref, authenticatedUser, filters);
 
         foundUsersRV.setLayoutManager(new LinearLayoutManager(this));

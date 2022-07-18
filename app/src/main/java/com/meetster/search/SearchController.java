@@ -1,6 +1,6 @@
 package com.meetster.search;
 
-import static com.meetster.PreferencesKeys.FOUND_USERS;
+import static com.meetster.PreferencesKeys.PREF_FOUND_USERS;
 
 import android.content.SharedPreferences;
 
@@ -89,7 +89,7 @@ public class SearchController {
     // get json containing previously found users from shared preferences
     // parse this json to a list of found users
     public List<FoundUser> getFoundUsers() {
-        String json = sharedPref.getString(FOUND_USERS, "");
+        String json = sharedPref.getString(PREF_FOUND_USERS, "");
         if (json.equals("")) {
             return new ArrayList<>();
         } else {
@@ -104,7 +104,7 @@ public class SearchController {
     public void saveFoundUsers(List<FoundUser> foundUsers) {
         String json = gson.toJson(foundUsers);
         SharedPreferences.Editor ed = sharedPref.edit();
-        ed.putString(FOUND_USERS, json);
+        ed.putString(PREF_FOUND_USERS, json);
         ed.commit();
     }
 }

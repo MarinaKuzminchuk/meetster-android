@@ -1,7 +1,7 @@
 package com.meetster.filter;
 
-import static com.meetster.PreferencesKeys.FILTERS_SPECIALTY;
-import static com.meetster.PreferencesKeys.FILTERS_TAG;
+import static com.meetster.PreferencesKeys.PREF_FILTERS_SPECIALTY;
+import static com.meetster.PreferencesKeys.PREF_FILTERS_TAG;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -21,8 +21,8 @@ public class FilterControllerTest {
     public void getFilters() {
         String testSpecialty = "specialtyTest";
         String testTag = "tagTest";
-        when(sharedPreferences.getString(FILTERS_SPECIALTY, "")).thenReturn(testSpecialty);
-        when(sharedPreferences.getString(FILTERS_TAG, "")).thenReturn(testTag);
+        when(sharedPreferences.getString(PREF_FILTERS_SPECIALTY, "")).thenReturn(testSpecialty);
+        when(sharedPreferences.getString(PREF_FILTERS_TAG, "")).thenReturn(testTag);
 
         Filters filters = filterController.getFilters();
 
@@ -38,8 +38,8 @@ public class FilterControllerTest {
         Filters filters = new Filters("specialtyTest", "tagTest");
         filterController.saveFilters(filters);
 
-        verify(editor).putString(FILTERS_SPECIALTY, filters.specialty);
-        verify(editor).putString(FILTERS_TAG, filters.tag);
+        verify(editor).putString(PREF_FILTERS_SPECIALTY, filters.specialty);
+        verify(editor).putString(PREF_FILTERS_TAG, filters.tag);
         verify(editor).commit();
     }
 }

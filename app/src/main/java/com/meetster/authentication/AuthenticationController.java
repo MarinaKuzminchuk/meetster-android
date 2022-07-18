@@ -1,6 +1,6 @@
 package com.meetster.authentication;
 
-import static com.meetster.PreferencesKeys.AUTHENTICATED_USER_NAME;
+import static com.meetster.PreferencesKeys.PREF_AUTHENTICATED_USER;
 
 import android.content.SharedPreferences;
 
@@ -16,14 +16,14 @@ public class AuthenticationController {
 
     // Get user name from shared preferences
     public User getUser() {
-        String userName = sharedPref.getString(AUTHENTICATED_USER_NAME, "");
+        String userName = sharedPref.getString(PREF_AUTHENTICATED_USER, "");
         return new User(userName);
     }
 
     // Save user name in shared preferences
     public void saveUser(User user) {
         SharedPreferences.Editor ed = sharedPref.edit();
-        ed.putString(AUTHENTICATED_USER_NAME, user.name);
+        ed.putString(PREF_AUTHENTICATED_USER, user.name);
         ed.commit();
     }
 }

@@ -1,6 +1,6 @@
 package com.meetster.authentication;
 
-import static com.meetster.PreferencesKeys.AUTHENTICATED_USER_NAME;
+import static com.meetster.PreferencesKeys.PREF_AUTHENTICATED_USER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -21,7 +21,7 @@ public class AuthenticationControllerTest {
     @Test
     public void getUser() {
         String testUserName = "testUser";
-        when(sharedPreferences.getString(AUTHENTICATED_USER_NAME, "")).thenReturn(testUserName);
+        when(sharedPreferences.getString(PREF_AUTHENTICATED_USER, "")).thenReturn(testUserName);
 
         User user = authenticationController.getUser();
 
@@ -36,7 +36,7 @@ public class AuthenticationControllerTest {
         User user = new User("testUser");
         authenticationController.saveUser(user);
 
-        verify(editor).putString(AUTHENTICATED_USER_NAME, user.name);
+        verify(editor).putString(PREF_AUTHENTICATED_USER, user.name);
         verify(editor).commit();
     }
 }
