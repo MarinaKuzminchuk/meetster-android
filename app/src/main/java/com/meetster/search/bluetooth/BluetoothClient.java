@@ -93,4 +93,13 @@ public class BluetoothClient {
         }
         btAdapter.setName(btName);
     }
+
+    public void makeDeviceDiscoverable() {
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, DISCOVERABLE_DURATION_IN_SECONDS);
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_ADVERTISE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        activity.startActivityForResult(discoverableIntent, REQUEST_DISCOVER_BT);
+    }
 }

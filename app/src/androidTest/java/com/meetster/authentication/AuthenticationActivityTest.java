@@ -10,11 +10,6 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
@@ -43,15 +38,6 @@ public class AuthenticationActivityTest {
     public void setup() {
         // Initializes Intents and begins recording intents.
         Intents.init();
-        clearSharedPreferences();
-    }
-
-    private void clearSharedPreferences() {
-        Context targetContext = getInstrumentation().getTargetContext();
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(targetContext);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.clear();
-        editor.apply();
     }
 
     @After
