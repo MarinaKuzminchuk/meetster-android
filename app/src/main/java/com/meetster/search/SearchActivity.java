@@ -85,6 +85,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 bluetoothClient.enableBluetooth();
+                btImage.setImageResource(R.drawable.ic_action_on);
                 searchBtn.setVisibility(View.GONE);
                 stopSearchBtn.setVisibility(View.VISIBLE);
             }
