@@ -8,8 +8,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.IntentExtraKeys.CHAT_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_CHAT_USER;
 import static org.hamcrest.CoreMatchers.not;
 
 import android.content.Intent;
@@ -55,8 +55,8 @@ public class ChatActivityTest {
     private void startChatBetweenUsers(String authenticatedUserName, String chatUserName) {
         Intent startActivityIntent =
                 new Intent(ApplicationProvider.getApplicationContext(), ChatActivity.class)
-                        .putExtra(AUTHENTICATED_USER, authenticatedUserName)
-                        .putExtra(CHAT_USER, chatUserName);
+                        .putExtra(EXTRA_AUTHENTICATED_USER, authenticatedUserName)
+                        .putExtra(EXTRA_CHAT_USER, chatUserName);
         activityRule.launchActivity(startActivityIntent);
     }
 

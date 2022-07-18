@@ -1,11 +1,9 @@
 package com.meetster.filter;
 
-import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.IntentExtraKeys.FILTERS_SPECIALTY;
-import static com.meetster.IntentExtraKeys.FILTERS_TAG;
+import static com.meetster.IntentExtraKeys.EXTRA_AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_FILTERS_SPECIALTY;
+import static com.meetster.IntentExtraKeys.EXTRA_FILTERS_TAG;
 import static com.meetster.PreferencesKeys.PREF_AUTHENTICATED_USER;
-import static com.meetster.PreferencesKeys.PREF_FILTERS_SPECIALTY;
-import static com.meetster.PreferencesKeys.PREF_FILTERS_TAG;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,7 +39,7 @@ public class FilterActivity extends AppCompatActivity {
         if (intent.getExtras() == null) {
             authenticatedUser = new User(sharedPref.getString(PREF_AUTHENTICATED_USER, ""));
         } else {
-            authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
+            authenticatedUser = new User(intent.getStringExtra(EXTRA_AUTHENTICATED_USER));
         }
 
         filterController = new FilterController(sharedPref);
@@ -66,9 +64,9 @@ public class FilterActivity extends AppCompatActivity {
                 } else {
                     filterController.saveFilters(filters);
                     Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
-                    intent.putExtra(AUTHENTICATED_USER, authenticatedUser.name);
-                    intent.putExtra(FILTERS_SPECIALTY, filters.specialty);
-                    intent.putExtra(FILTERS_TAG, filters.tag);
+                    intent.putExtra(EXTRA_AUTHENTICATED_USER, authenticatedUser.name);
+                    intent.putExtra(EXTRA_FILTERS_SPECIALTY, filters.specialty);
+                    intent.putExtra(EXTRA_FILTERS_TAG, filters.tag);
                     startActivity(intent);
                 }
             }

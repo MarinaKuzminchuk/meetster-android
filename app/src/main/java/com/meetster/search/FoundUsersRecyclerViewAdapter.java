@@ -1,7 +1,7 @@
 package com.meetster.search;
 
-import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.IntentExtraKeys.CHAT_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_CHAT_USER;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -62,8 +62,8 @@ public class FoundUsersRecyclerViewAdapter extends RecyclerView.Adapter<FoundUse
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, ChatActivity.class);
-                intent.putExtra(AUTHENTICATED_USER, authenticatedUser.name);
-                intent.putExtra(CHAT_USER, viewHolder.foundUserName.getText().toString());
+                intent.putExtra(EXTRA_AUTHENTICATED_USER, authenticatedUser.name);
+                intent.putExtra(EXTRA_CHAT_USER, viewHolder.foundUserName.getText().toString());
                 activity.startActivity(intent);
             }
         });

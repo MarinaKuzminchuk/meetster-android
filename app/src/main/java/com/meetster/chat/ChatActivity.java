@@ -1,7 +1,7 @@
 package com.meetster.chat;
 
-import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.IntentExtraKeys.CHAT_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_CHAT_USER;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,8 +39,8 @@ public class ChatActivity extends AppCompatActivity {
         // (inside recycler view when we click on the found user)
         // and authenticated user name
         Intent intent = getIntent();
-        User chatUser = new User(intent.getStringExtra(CHAT_USER));
-        User authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
+        User chatUser = new User(intent.getStringExtra(EXTRA_CHAT_USER));
+        User authenticatedUser = new User(intent.getStringExtra(EXTRA_AUTHENTICATED_USER));
         userNameText.setText(chatUser.name);
 
         ChatRecyclerViewAdapter chatRecyclerViewAdapter =

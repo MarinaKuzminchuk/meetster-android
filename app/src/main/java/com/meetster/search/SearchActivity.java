@@ -1,8 +1,8 @@
 package com.meetster.search;
 
-import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
-import static com.meetster.IntentExtraKeys.FILTERS_SPECIALTY;
-import static com.meetster.IntentExtraKeys.FILTERS_TAG;
+import static com.meetster.IntentExtraKeys.EXTRA_AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_FILTERS_SPECIALTY;
+import static com.meetster.IntentExtraKeys.EXTRA_FILTERS_TAG;
 import static com.meetster.PreferencesKeys.PREF_AUTHENTICATED_USER;
 import static com.meetster.PreferencesKeys.PREF_FILTERS_SPECIALTY;
 import static com.meetster.PreferencesKeys.PREF_FILTERS_TAG;
@@ -62,8 +62,8 @@ public class SearchActivity extends AppCompatActivity {
                     sharedPref.getString(PREF_FILTERS_SPECIALTY, ""),
                     sharedPref.getString(PREF_FILTERS_TAG, ""));
         } else {
-            authenticatedUser = new User(intent.getStringExtra(AUTHENTICATED_USER));
-            filters = new Filters(intent.getStringExtra(FILTERS_SPECIALTY), intent.getStringExtra(FILTERS_TAG));
+            authenticatedUser = new User(intent.getStringExtra(EXTRA_AUTHENTICATED_USER));
+            filters = new Filters(intent.getStringExtra(EXTRA_FILTERS_SPECIALTY), intent.getStringExtra(EXTRA_FILTERS_TAG));
         }
 
         SearchController searchController = new SearchController(sharedPref, authenticatedUser, filters);

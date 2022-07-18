@@ -1,6 +1,6 @@
 package com.meetster.authentication;
 
-import static com.meetster.IntentExtraKeys.AUTHENTICATED_USER;
+import static com.meetster.IntentExtraKeys.EXTRA_AUTHENTICATED_USER;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -45,7 +45,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                     User user = new User(userName);
                     authenticationController.saveUser(user);
                     Intent intent = new Intent(AuthenticationActivity.this, FilterActivity.class);
-                    intent.putExtra(AUTHENTICATED_USER, user.name);
+                    intent.putExtra(EXTRA_AUTHENTICATED_USER, user.name);
                     startActivity(intent);
                 }
             }
